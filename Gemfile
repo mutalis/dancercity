@@ -38,3 +38,4 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'foundation-rails', '5.1.1'
