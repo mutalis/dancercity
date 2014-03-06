@@ -35,6 +35,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    env_bang (0.2.9)
+    env_bang-rails (0.2.9)
+      env_bang (= 0.2.9)
     erubis (2.7.0)
     execjs (2.0.2)
     foundation-rails (5.1.1.0)
@@ -109,6 +112,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  env_bang-rails (= 0.2.9)
   foundation-rails (= 5.1.1)
   jquery-rails
   rails (= 4.0.3)
