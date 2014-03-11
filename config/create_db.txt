@@ -1,0 +1,14 @@
+
+> createuser -U postgres -P -e dancercity
+SQL:
+psql> CREATE ROLE dancercity PASSWORD 'md556767a496e1da3cd3564675e3791a130' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+
+
+> createdb -U postgres -e -O dancercity -E UTF8 -T template0 --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 dancercity
+SQL:
+psql> CREATE DATABASE dancercity OWNER dancercity ENCODING 'UTF8' TEMPLATE template0 LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8';
+
+
+>dropuser -U postgres dancercity
+
+>dropdb -U postgres dancercity

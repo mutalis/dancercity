@@ -5,9 +5,9 @@ gem 'rails', '4.0.3'
 
 ruby '1.9.3'
 
+gem 'pg', '0.17.1'
+
 group :development, :test do
-	# Use sqlite3 as the database for Active Record
-	gem 'sqlite3'
 	# Use debugger
 	gem 'debugger'
 end
