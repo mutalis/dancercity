@@ -110,6 +110,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_on_users_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_on_users_location ON users USING gist (st_geographyfromtext((((('SRID=4326;POINT('::text || longitude) || ' '::text) || latitude) || ')'::text)));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -127,3 +134,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140312203755');
 INSERT INTO schema_migrations (version) VALUES ('20140320003013');
 
 INSERT INTO schema_migrations (version) VALUES ('20140320042848');
+
+INSERT INTO schema_migrations (version) VALUES ('20140320191841');
