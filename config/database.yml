@@ -13,7 +13,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: dancercity
+  database: dancercity_test
   username: dancercity
   password: <%= ENV!['DB_PASS'] %>
   host: localhost
