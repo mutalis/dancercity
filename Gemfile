@@ -46,3 +46,4 @@ gem 'foundation-rails', '5.1.1'
 
 gem 'omniauth-facebook', '1.6.0'
 
+gem 'koala', '1.9.0'
