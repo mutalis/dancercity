@@ -26,14 +26,12 @@ class User < ActiveRecord::Base
       user.gender = auth.extra.raw_info.gender
 
       # get user location via Koala only if the location data exists
-      if auth.extra.raw_info.location.respond_to? :id 
-        if (user.longitude == nil) || (user.latitude == nil)
-          graph = Koala::Facebook::API.new(auth.credentials.token)
-          current_location = graph.get_object(auth.extra.raw_info.location.id)
-          user.longitude = current_location['location']['longitude']
-          user.latitude = current_location['location']['latitude']
-        end
-    end
+      if auth.extra.raw_info.location.respond_to? :id
+        graph = Koala::Facebook::API.new(auth.credentials.token)
+        current_location = graph.get_object(auth.extra.raw_info.location.id)
+        user.longitude = current_location['location']['longitude']
+        user.latitude = current_location['location']['latitude']
+      end
       user.save!
     end
   end
