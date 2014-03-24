@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
 
-  scope :close_to, -> (latitude, longitude, distance_in_meters = 2000) {
+  scope :match_gender, -> (gender) { where("gender = ?", gender) }
+
+
+
+  scope :close_to, -> (longitude, latitude, distance_in_meters = 2000) {
     where(%{
       ST_DWithin(
         ST_GeographyFromText(
