@@ -72,7 +72,7 @@ CREATE TABLE users (
     updated_at timestamp without time zone,
     longitude numeric(9,6),
     latitude numeric(9,6),
-    dances text[]
+    dances text[] DEFAULT '{}'::text[]
 );
 
 
