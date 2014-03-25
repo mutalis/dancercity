@@ -71,7 +71,8 @@ CREATE TABLE users (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     longitude numeric(9,6),
-    latitude numeric(9,6)
+    latitude numeric(9,6),
+    dances text[]
 );
 
 
@@ -136,3 +137,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140320003013');
 INSERT INTO schema_migrations (version) VALUES ('20140320042848');
 
 INSERT INTO schema_migrations (version) VALUES ('20140320191841');
+
+INSERT INTO schema_migrations (version) VALUES ('20140325011131');
