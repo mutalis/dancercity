@@ -2,7 +2,11 @@ class User < ActiveRecord::Base
 
   scope :match_gender, -> (gender) { where("gender = ?", gender) }
 
+  # Find all the users that have any of the dances of the given array.
+  scope :any_types_of_dance, -> (dances) { where('dances && ARRAY[?]', dances) }
 
+  # Find all the users that have all the dances of the given array.
+  scope :all_the_types_of_dance, -> (dances) { where('dances @> ARRAY[?]', dances) }
 
   scope :close_to, -> (longitude, latitude, distance_in_meters = 2000) {
     where(%{
