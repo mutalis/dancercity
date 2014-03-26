@@ -111,6 +111,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_on_users_gender; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_on_users_gender ON users USING gin (to_tsvector('simple'::regconfig, (gender)::text));
+
+
+--
 -- Name: index_on_users_location; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -139,3 +146,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140320042848');
 INSERT INTO schema_migrations (version) VALUES ('20140320191841');
 
 INSERT INTO schema_migrations (version) VALUES ('20140325011131');
+
+INSERT INTO schema_migrations (version) VALUES ('20140326175539');
