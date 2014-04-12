@@ -7,19 +7,52 @@
     <title><%= content_for?(:title) ? yield(:title) : "Dancercity" %></title>
 
     <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <% if current_user %>
-      Signed in as <strong><%= current_user.name %></strong>!
-      <%= link_to "Sign out", signout_path, id: "sign_out" %>
-    <% else %>
-      <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-    <% end %>
+    <div class="off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+        <nav class="tab-bar">
+          <section class="left-small">
+            <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+          </section>
 
-    <%= yield %>
-    <%= javascript_include_tag "application" %>
+          <section class="middle tab-bar-section">
+            <h1 class="title">Dancer City</h1>
+          </section>
+        </nav>
+
+        <aside class="left-off-canvas-menu">
+          <ul class="off-canvas-list">
+            <li><label>Menu</label></li>
+            <li><a href="#">Dasdboard</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+        </aside>
+
+
+        <section class="main-section">
+          <div class="row">
+            <div class="small-12 small-centered columns">
+              <% if current_user %>
+              Signed in as <strong><%= current_user.name %></strong>!
+              <%= link_to "Sign out", signout_path, id: "sign_out" %>
+              <% else %>
+              <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+              <% end %>
+              
+              <%= yield %>
+            </div>
+          </div>
+        </section>
+
+        <a class="exit-off-canvas"></a>
+
+      </div>
+    </div>
   </body>
 </html>
