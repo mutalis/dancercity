@@ -13,6 +13,10 @@ group :development, :test do
 	gem 'puma', '2.8.1'
 end
 
+group :development do
+  gem 'rails_db_info'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

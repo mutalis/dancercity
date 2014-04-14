@@ -105,6 +105,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.4)
       sprockets-rails (~> 2.0.0)
+    rails_db_info (0.1.9)
+      rails (>= 3.1.0)
     railties (4.0.4)
       actionpack (= 4.0.4)
       activesupport (= 4.0.4)
@@ -157,6 +159,7 @@ DEPENDENCIES
   pg (= 0.17.1)
   puma (= 2.8.1)
   rails (= 4.0.4)
+  rails_db_info
   sass-rails (~> 4.0.0)
   sdoc
   uglifier (>= 1.3.0)
