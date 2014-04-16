@@ -15,6 +15,7 @@ end
 
 group :development do
   gem 'rails_db_info'
+  gem 'bullet'
 end
 
 # Use SCSS for stylesheets
