@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  extend FriendlyId
+  
+  validates :slug, uniqueness: true, presence: true,
+            exclusion: {in: %w[signout fb_updates]}
+
+  friendly_id :username, use: [:slugged, :history]
 
   scope :match_gender, -> (gender) { where("gender = ?", gender) }
 
@@ -50,5 +56,13 @@ class User < ActiveRecord::Base
   rescue Koala::Facebook::APIError => e
     logger.info e.to_s
     nil
+  end
+  
+  def friends_pics(pics_number)
+    facebook { |fb| fb.fql_query("select pic_square from user where uid in (select uid2 from friend where uid1 = me()) limit #{pics_number}") }
+  end
+
+  def friends_count
+    facebook { |fb| fb.get_connections("me", "friends").size }
   end
 end

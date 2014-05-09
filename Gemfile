@@ -54,3 +54,5 @@ gem 'omniauth-facebook', '1.6.0'
 gem 'koala', '1.9.0'
 
 gem 'rack-mini-profiler'
+
+gem 'friendly_id', '5.0.3'

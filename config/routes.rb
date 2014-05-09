@@ -4,12 +4,15 @@ Dancercity::Application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
   
   match 'fb_updates', to: 'sessions#fb_notifications', via: [:get, :post]
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'users#index'
+
+  resources :users, only: [:index, :new, :create]
+  resources :users, path: '', except: [:index, :new, :create]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
