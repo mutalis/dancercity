@@ -1,10 +1,14 @@
 class User < ActiveRecord::Base
   extend FriendlyId
   
-  validates :slug, uniqueness: true, presence: true,
-            exclusion: {in: %w[signout fb_updates]}
+  # validates :username, uniqueness: true, presence: true,
+  #           exclusion: {in: %w[signout fb_updates]}
 
   friendly_id :username, use: [:slugged, :history]
+
+  default_scope { order(created_at: :asc) }
+
+  scope :want_dance, -> { where.not("visibility = ?", 'close') } 
 
   scope :match_gender, -> (gender) { where("gender = ?", gender) }
 

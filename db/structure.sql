@@ -106,7 +106,8 @@ CREATE TABLE users (
     longitude numeric(9,6),
     latitude numeric(9,6),
     dances text[] DEFAULT '{}'::text[],
-    slug character varying(255)
+    slug character varying(255),
+    visibility character varying(255)
 );
 
 
@@ -209,6 +210,13 @@ CREATE UNIQUE INDEX index_users_on_slug ON users USING btree (slug);
 
 
 --
+-- Name: index_users_on_visibility; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_visibility ON users USING btree (visibility);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -236,3 +244,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140326175539');
 INSERT INTO schema_migrations (version) VALUES ('20140509032012');
 
 INSERT INTO schema_migrations (version) VALUES ('20140509032844');
+
+INSERT INTO schema_migrations (version) VALUES ('20140512174233');

@@ -4,7 +4,11 @@ class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
-    redirect_to root_url
+    if user.visibility == nil
+      redirect_to user, notice: 'Please setup your profile'
+    else
+      redirect_to root_url
+    end
   end
 
   def destroy

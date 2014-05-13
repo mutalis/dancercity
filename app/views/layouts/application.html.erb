@@ -7,7 +7,6 @@
     <title><%= content_for?(:title) ? yield(:title) : "Dancercity" %></title>
 
     <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
@@ -21,7 +20,7 @@
           </section>
 
           <section class="middle tab-bar-section">
-            <h1 class="title">Dancer City</h1>
+            <h1 class="title"><%= link_to 'Dancer City', root_path %></h1>
           </section>
         </nav>
 
@@ -29,8 +28,9 @@
           <ul class="off-canvas-list">
             <li><label>Menu</label></li>
             <li><a href="#">Dasdboard</a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Settings</a></li>
+            <% if current_user %>
+              <li><%= link_to 'Profile', user_path(current_user.id) %></li>
+            <% end %>
           </ul>
         </aside>
 
@@ -38,11 +38,18 @@
         <section class="main-section">
           <div class="row">
             <div class="small-12 small-centered columns">
+              <% flash.each do |name, message| %>
+                <%= content_tag :div, class: 'alert-box success radius', data: {alert: ''} do %>
+                  <%= message %>
+                  <a href="#" class="close">&times;</a>
+                <% end %>
+              <% end %>
+
               <% if current_user %>
-              Signed in as <strong><%= current_user.name %></strong>!
-              <%= link_to "Sign out", signout_path, id: "sign_out" %>
+                Signed in as <strong><%= current_user.first_name %></strong>!
+                <%= link_to "Sign out", signout_path, id: "sign_out", class: 'button radius' %>
               <% else %>
-              <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+                <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'button radius' %>
               <% end %>
               
               <%= yield %>
@@ -54,5 +61,6 @@
 
       </div>
     </div>
+    <%= javascript_include_tag "application" %>
   </body>
 </html>

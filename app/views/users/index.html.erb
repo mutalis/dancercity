@@ -1,0 +1,33 @@
+<%=  params.inspect %>
+<% if current_user %>
+  <%= form_tag users_path, method: :get do %>
+    <p>
+    <!-- <%= text_field_tag :query, params[:query] %> -->
+    <%= label_tag :gender, 'Find out a' %>
+    <%= select_tag 'gender', options_for_select([['woman', 'female'], ['man', 'male']]) %>
+    <%= label_tag :dances, 'that likes to dance:' %>
+    <%= collection_check_boxes(:user, :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s) %>
+    <%= submit_tag 'Search', name: nil, class: 'button radius' %>
+    </p>
+  <% end %>
+
+  <p>Click here to invite your friends to use Dancer City</p>
+
+  <% @pic_urls.each do |i| %>
+    <%= image_tag(i) %>
+  <% end %>
+
+  <% if @users %>
+    <p>Invite to dance to any of the following persons:</p>
+    <p>The following persons match your search criteria:</p>
+    <div id="users"><%= render @users %></div>
+  <% end %>
+
+<% else %>
+  <p>The party is here !</p>
+<p>Let's party !</p>
+<p>Finally - THE PARTY IS ON!!  (And you are ALL invited!)</p>
+<% end %>
+
+
+ <!-- to show and display the sign in button. -->

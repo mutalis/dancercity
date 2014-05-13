@@ -1,7 +1,19 @@
 
 > createuser -U postgres -P -e dancercity
+
 SQL:
 psql> CREATE ROLE dancercity PASSWORD 'md556767a496e1da3cd3564675e3791a130' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+
+
+New Role (dancercity) who can create new databases
+
+> createuser -U postgres -P -e -d dancercity
+
+
+New Role (dancercity) Superuser
+
+> createuser -U postgres -P -e -s dancercity
+
 
 
 > createdb -U postgres -e -O dancercity -E UTF8 -T template0 --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 dancercity
