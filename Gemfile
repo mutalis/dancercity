@@ -56,3 +56,5 @@ gem 'koala', '1.9.0'
 gem 'rack-mini-profiler'
 
 gem 'friendly_id', '5.0.3'
+
+gem 'will_paginate', '3.0.5'

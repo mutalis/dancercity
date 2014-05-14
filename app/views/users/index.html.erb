@@ -21,13 +21,17 @@
     <p>Invite to dance to any of the following persons:</p>
     <p>The following persons match your search criteria:</p>
     <div id="users"><%= render @users %></div>
+    <%= will_paginate @users %>
   <% end %>
 
 <% else %>
   <p>The party is here !</p>
 <p>Let's party !</p>
 <p>Finally - THE PARTY IS ON!!  (And you are ALL invited!)</p>
+    <div id="users">
+      <%= render @users %>
+    </div>
+    <%= will_paginate @users %>
 <% end %>
-
 
  <!-- to show and display the sign in button. -->
