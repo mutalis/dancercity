@@ -1,6 +1,15 @@
 class User < ActiveRecord::Base
   extend FriendlyId
-  
+
+  has_many :invitations
+  has_many :partners, through: :invitations
+
+  has_many :sent_invitations, class_name: "Invitation", foreign_key: "partner_id"
+  has_many :inverse_partners, through: :sent_invitations, source: :user
+
+  has_many :accepted_invitations, -> { where status: true }
+  has_many :sent_accepted_invitations, -> { where status: true }, class_name: "Invitation", foreign_key: "partner_id"
+    
   # validates :username, uniqueness: true, presence: true,
   #           exclusion: {in: %w[signout fb_updates]}
 
