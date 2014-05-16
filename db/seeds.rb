@@ -43,3 +43,9 @@ User.create first_name: '29'
 User.create first_name: '30'
 User.create first_name: '31'
 User.create first_name: '32'
+
+same_date = Time.now
+User.find(1).sent_invitations.create date: same_date, user: User.find(2)
+User.find(1).sent_invitations.create date: same_date, user: User.find(2)
+
+User.find(1).check_for_duplicate_invitations(Invitation.first)

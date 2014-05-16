@@ -4,12 +4,22 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_many :partners, through: :invitations
 
-  has_many :sent_invitations, class_name: "Invitation", foreign_key: "partner_id"
+  has_many :sent_invitations, class_name: "Invitation", foreign_key: "partner_id", before_add: :check_for_duplicate_invitations
   has_many :inverse_partners, through: :sent_invitations, source: :user
 
   has_many :accepted_invitations, -> { where status: true }
   has_many :sent_accepted_invitations, -> { where status: true }, class_name: "Invitation", foreign_key: "partner_id"
-    
+
+  # Throws an exception if a new invitation is a duplicate from a previous one sent to
+  # the same person with the same date.
+  def check_for_duplicate_invitations(invitation)
+    result = sent_invitations.where({ date: invitation.date, user: invitation.user })
+    if (result) && (result.count >= 1)
+      # throws an exception
+      raise "Invalid invitation, it's a duplicate."
+    end
+  end
+
   # validates :username, uniqueness: true, presence: true,
   #           exclusion: {in: %w[signout fb_updates]}
 
