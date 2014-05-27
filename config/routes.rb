@@ -11,7 +11,9 @@ Dancercity::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'users#index'
 
-  resources :users, only: [:index, :new, :create]
+  resources :users, only: [:index, :new, :create] do
+    resources :invitations, only: [:index, :show, :create, :update]
+  end
   resources :users, path: '', except: [:index, :new, :create]
 
   # Example of regular route:
