@@ -3,22 +3,19 @@
 
 <p>Sex: <%= @user.gender %></p>
 
-
-<% if current_user %>
-
 <p>Choose what do you like to dance ?</p>
 
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
+    <ul>
       <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <li><%= msg %></li>
       <% end %>
-      </ul>
-    </div>
+    </ul>
+  </div>
   <% end %>
 
   <div class="field">
@@ -26,15 +23,12 @@
   </div>
 
   <div class="field">
-     <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
-   </div>
+    <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
+  </div>
 
   <div class="actions">
     <%= f.submit 'Update profile', name: nil, class: 'button radius' %>
   </div>
-<% end %>
-<% else %>
-<h4><%= @user.first_name %> likes to dance:</h4>
-<p><%= @user.dances.join(' ') %></p>
 
 <% end %>
+
