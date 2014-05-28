@@ -29,7 +29,7 @@
             <li><label>Menu</label></li>
             <li><a href="#">Dasdboard</a></li>
             <% if current_user %>
-              <li><%= link_to 'Profile', user_path(current_user.id) %></li>
+              <li><%= link_to 'My Profile', user_path(@current_user) %></li>
             <% end %>
           </ul>
         </aside>
@@ -38,15 +38,9 @@
         <section class="main-section">
           <div class="row">
             <div class="small-12 small-centered columns">
-              <% flash.each do |name, message| %>
-                <%= content_tag :div, class: 'alert-box success radius', data: {alert: ''} do %>
-                  <%= message %>
-                  <a href="#" class="close">&times;</a>
-                <% end %>
-              <% end %>
-
+<div id="notices"></div>
               <% if current_user %>
-                Signed in as <strong><%= current_user.first_name %></strong>!
+                Signed in as <strong><%= @current_user.first_name %></strong>!
                 <%= link_to "Sign out", signout_path, id: "sign_out", class: 'button radius' %>
               <% else %>
                 <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'button radius' %>
