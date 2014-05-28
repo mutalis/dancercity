@@ -1,5 +1,5 @@
 <%=  params.inspect %>
-<% if current_user %>
+<% if @current_user %>
   <%= form_tag users_path, method: :get do %>
     <p>
     <!-- <%= text_field_tag :query, params[:query] %> -->
@@ -25,6 +25,7 @@
   <% end %>
 
 <% else %>
+
   <p>The party is here !</p>
 <p>Let's party !</p>
 <p>Finally - THE PARTY IS ON!!  (And you are ALL invited!)</p>
@@ -35,3 +36,4 @@
 <% end %>
 
  <!-- to show and display the sign in button. -->
+
