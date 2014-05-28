@@ -7,8 +7,9 @@ class User < ActiveRecord::Base
   has_many :sent_invitations, class_name: "Invitation", foreign_key: "partner_id", before_add: :check_for_duplicate_invitations
   has_many :inverse_partners, through: :sent_invitations, source: :user
 
-  has_many :accepted_invitations, -> { where status: true }
-  has_many :sent_accepted_invitations, -> { where status: true }, class_name: "Invitation", foreign_key: "partner_id"
+  has_many :accepted_invitations, -> { where status: 'accepted' }, class_name: "Invitation"
+  has_many :pending_invitations, -> { where status: 'pending' }, class_name: "Invitation"
+  has_many :sent_accepted_invitations, -> { where status: 'accepted' }, class_name: "Invitation", foreign_key: "partner_id"
 
   # Throws an exception if a new invitation is a duplicate from a previous one sent to
   # the same person with the same date.
