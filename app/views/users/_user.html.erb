@@ -1,1 +1,4 @@
-<p><%= user.first_name %></p>
+<%= content_tag :p, id: "user_#{user.id}" do  %>
+<%= user.first_name %>
+<%= link_to "Send invitation", user_invitations_path(user.id), method: :post, remote: true, class: 'button radius' %>
+<% end %>
