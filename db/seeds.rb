@@ -11,8 +11,8 @@
 # User.create first_name: 'Tango', last_name: 'Hoy'
 # User.create first_name: 'Randall', last_name: 'Azibo'
 
-User.create first_name: '1'
-User.create first_name: '2'
+User.create first_name: '1', username: 'rasg'
+User.create first_name: '2', username: 'lau'
 User.create first_name: '3'
 User.create first_name: '4'
 User.create first_name: '5'
@@ -46,6 +46,6 @@ User.create first_name: '32'
 
 same_date = Time.now
 User.find(1).sent_invitations.create date: same_date, user: User.find(2)
-User.find(1).sent_invitations.create date: same_date, user: User.find(2)
+# User.find(1).sent_invitations.create date: same_date, user: User.find(2)
 
-User.find(1).check_for_duplicate_invitations(Invitation.first)
+# User.find(1).check_for_duplicate_invitations(Invitation.first)

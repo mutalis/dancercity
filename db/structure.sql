@@ -82,10 +82,11 @@ ALTER SEQUENCE friendly_id_slugs_id_seq OWNED BY friendly_id_slugs.id;
 
 CREATE TABLE invitations (
     id integer NOT NULL,
+    dance character varying(255),
     place character varying(255),
     message character varying(255),
     date timestamp without time zone,
-    status boolean DEFAULT false,
+    status character varying(255) DEFAULT 'pending'::character varying,
     user_id integer,
     partner_id integer,
     created_at timestamp without time zone,
