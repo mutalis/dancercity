@@ -89,4 +89,23 @@ class User < ActiveRecord::Base
   def friends_count
     facebook { |fb| fb.get_connections("me", "friends").size }
   end
+
+  # def send_facebook_message
+  #   # receiver_chat_id   = "-#{receiver_uid}@chat.facebook.com"
+  #   # receiver_chat_id   = "-100002981817359@chat.facebook.com"
+  #   receiver_chat_id   = "-#{self.uid}@chat.facebook.com"
+  #   sender_chat_id = "-#{self.uid}@chat.facebook.com"
+  #   
+  #   jabber_message   = Jabber::Message.new(receiver_chat_id, facebook_message)
+  #   jabber_message.subject = "Tango MX"
+  # 
+  #   client = Jabber::Client.new(Jabber::JID.new(sender_chat_id))
+  #   client.connect
+  #   client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client,
+  #    ENV!['FACEBOOK_KEY'], self.oauth_token, ENV!['FACEBOOK_SECRET']), nil)
+  #   client.send(jabber_message)
+  #   client.close
+  # rescue RuntimeError
+  #   raise FacebookChatAccessDenied, "No access to Facebook Chat"
+  # end
 end
