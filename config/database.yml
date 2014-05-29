@@ -26,4 +26,4 @@ production:
   username: dancercity
   password: <%= ENV!['DB_PASS'] %>
   host: localhost
-  pool: 5
+  pool: 25

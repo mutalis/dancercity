@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.0.5'
 
 ruby '2.0.0'
 
@@ -60,3 +59,9 @@ gem 'friendly_id', '5.0.3'
 gem 'will_paginate', '3.0.5'
 
 gem 'xmpp4r_facebook'
+
+gem 'sidekiq', '3.1.2'
+
+# To display the current state of Sidekiq
+gem 'sinatra', '1.4.5', require: false
+gem 'slim', '2.0.0'
