@@ -63,7 +63,7 @@ class InvitationsController < ApplicationController
   end
 
   def facebook_message(invitation)
-    "Dancer City notification:\n
+    "Dancer City invitation:\n
     You got an invitation from #{current_user.first_name} #{current_user.last_name} to dance.\n
     Please see the details at: #{user_invitation_url(invitation.user, invitation)}"
   end

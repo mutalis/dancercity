@@ -23,6 +23,6 @@ Dancercity::Application.routes.draw do
     username == 'rasg' && password == 'kiaqloo9sw'
   end
 
-  mount Sidekiq::Web, at: "/monitor"
+  mount Sidekiq::Web, at: "bg/monitor"
 
 end
