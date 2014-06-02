@@ -29,12 +29,12 @@ class UsersController < ApplicationController
           # puts @users.to_a.inspect
         end
         @pic_urls = []
-      else # gets a random set of user profile images when the search is blank.
-        @pic_urls = @current_user.friends_pics(8).map {|i| i['pic_square']}
+      else # gets a set of user profile images when the search form is blank.
+        @pic_urls = @current_user.friends_pics(12).map {|i| i['pic_square']}
       end
-    else
-      #       no logged 
-      @users = User.all.page(params[:page]).per_page(10)
+    else # no logged 
+      # gets a set of user profile images when no logged.
+      @pic_urls = User.find_by(username: 'tangohoy1').friends_pics(32).map {|i| i['pic_square']}
     end
   end
 
@@ -60,11 +60,16 @@ class UsersController < ApplicationController
     # @user = User.friendly.find params[:id]
     @user = current_user
 
-    # If an old id or a numeric id was used to find the record, then
-    # the request path will not match the user_path, and we should do
-    # a 301 redirect that uses the current friendly id.
-    if request.path != user_path(@user)
-      return redirect_to @user, status: :moved_permanently
+    # if the user is not logged in redirect to the login page.
+    if @user
+      # If an old id or a numeric id was used to find the record, then
+      # the request path will not match the user_path, and we should do
+      # a 301 redirect that uses the current friendly id.
+      if request.path != user_path(@user)
+        return redirect_to @user, status: :moved_permanently
+      end
+    else
+      redirect_to root_path
     end
     # 
     # if @current_user.slug != @user.slug
