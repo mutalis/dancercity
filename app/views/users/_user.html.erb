@@ -1,4 +1,22 @@
-<%= content_tag :p, id: "user_#{user.id}" do  %>
-<%= user.first_name %>
-<%= link_to "Send invitation", user_invitations_path(user.id), method: :post, remote: true, class: 'button radius' %>
+<%= content_tag :div, id: "user_#{user.id}" do %>
+  <ul class="small-block-grid-2">
+    <li>
+      <%= image_tag user.image, class: 'border-rounded' %>
+
+      <strong><%= user.first_name %> <%= user.last_name %></strong>
+      likes to dance:<br>
+      <% user.dances.each do |dance| %>
+        <%= dance %>
+      <% end %>
+      <p>Location:</p>
+    </li>
+
+    <li>
+      <%= form_for([user, Invitation.new], remote: true) do |f| %>
+        <%= f.text_area :message, rows: 2, placeholder: 'Message', class: 'radius' %>
+        <%= f.submit 'Send invitation', name: nil, class: 'tiny button radius' %>
+      <% end %>
+    </li>
+  </ul>
+  <hr>
 <% end %>
