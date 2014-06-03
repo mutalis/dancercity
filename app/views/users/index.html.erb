@@ -17,10 +17,12 @@
     <% end %>
   </ul>
 
-  <% if @users %>
+  <% if @users && !(@users.empty?) %>
     <p>The following persons match your search criteria:</p>
     <div id="users"><%= render @users %></div>
     <%= will_paginate @users %>
+  <% else %>
+    <p>There is not any person that match your search criteria at this time. Try again later.</p>
   <% end %>
 
 <% else %>
