@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update]
 
@@ -25,8 +27,10 @@ class UsersController < ApplicationController
           # @users = User.match_gender().any_types_of_dance().close_to()
           # @users = User.want_dance.match_gender().any_types_of_dance().close_to()
     
-          @users = User.no_user(@current_user.username).want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances]).page(params[:page]).per_page(10)
-          # puts @users.to_a.inspect
+          @users = User.no_user(@current_user.username).want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
+
+          # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
+          @users = @current_user.remove_users_with_pending_invitations(@users).paginate(:page => params[:page], :per_page => 10)
         end
         @pic_urls = []
       else # gets a set of user profile images when the search form is blank.

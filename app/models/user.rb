@@ -12,6 +12,12 @@ class User < ActiveRecord::Base
   has_many :accepted_invitations, -> { where status: 'accepted' }, class_name: "Invitation"
   has_many :pending_invitations, -> { where status: 'pending' }, class_name: "Invitation"
   has_many :sent_accepted_invitations, -> { where status: 'accepted' }, class_name: "Invitation", foreign_key: "partner_id"
+  has_many :sent_pending_invitations, -> { where status: 'pending' }, class_name: "Invitation", foreign_key: "partner_id"
+  
+  validates :username, uniqueness: true, presence: true,
+            exclusion: {in: %w[signout fb_updates new admin]}
+
+  friendly_id :username, use: [:slugged, :history]
 
   # Throws an exception if a new invitation is a duplicate from a previous one sent to
   # the same person with the same date.
@@ -23,10 +29,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  validates :username, uniqueness: true, presence: true,
-            exclusion: {in: %w[signout fb_updates new admin]}
+  def has_pending_invitations?(user)
+    result = sent_pending_invitations.where({ user: user })
+    if (result) && (result.count >= 1)
+      true
+    else
+      false
+    end
+  end
 
-  friendly_id :username, use: [:slugged, :history]
+  def remove_users_with_pending_invitations(users)
+    users.delete_if { |u| self.has_pending_invitations?(u) }
+  end
 
   default_scope { order(created_at: :asc) }
 
