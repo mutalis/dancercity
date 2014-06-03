@@ -1,11 +1,20 @@
-<h1>Invitation for <%= @invitation.user.first_name %> <%= @invitation.user.last_name %></h1>
+<div id="invitation">
+<h4>Invitation for <%= @invitation.user.first_name %> <%= @invitation.user.last_name %></h4>
 
-<p>You got an invitation from <%= @invitation.partner.first_name %> to dance .</p>
+<p>You've got an invitation to dance from <%= @invitation.partner.first_name %> <%= @invitation.partner.last_name %>.</p>
+
+<% if @invitation.message.present? %>
+  <p>Message:<br>
+  <%= @invitation.message %></p>
+<% else %>
+  <p><%= @invitation.partner.first_name %> <%= @invitation.partner.last_name %> did not add any message to this invitation.</p>
+<% end %>
 
 <p>Do you accept this invitation ?</p>
 
-<%= link_to "Yes", user_invitation_path(@invitation.user, @invitation, ans: 'accepted'), method: :put, remote: true, class: 'button radius' %>
+<%= link_to "Yes", user_invitation_path(@invitation.user, @invitation, ans: 'accepted'), method: :put, remote: true, class: 'tiny button radius' %>
 
-<%= link_to "Not at this time", user_invitation_path(@invitation.user, @invitation, ans: 'rejected'), method: :put, remote: true, class: 'button radius' %>
-
-<p><%= link_to "See all the invitations received", user_invitations_path, class: 'button radius' %></p>
+<%= link_to "Not at this time", user_invitation_path(@invitation.user, @invitation, ans: 'rejected'), method: :put, remote: true, class: 'tiny button radius' %>
+</div>
+<br><br><br>
+<p><%= link_to "Go to Home Page", root_path, class: 'tiny button radius' %></p>
