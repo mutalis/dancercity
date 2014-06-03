@@ -58,7 +58,7 @@ gem 'friendly_id', '5.0.3'
 
 gem 'will_paginate', '3.0.5'
 
-gem 'xmpp4r_facebook'
+gem 'xmpp4r_facebook', '0.1.1'
 
 gem 'sidekiq', '3.1.2'
 

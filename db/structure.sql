@@ -144,7 +144,8 @@ CREATE TABLE users (
     latitude numeric(9,6),
     dances text[] DEFAULT '{}'::text[],
     slug character varying(255),
-    visibility character varying(255)
+    visibility character varying(255),
+    current_location character varying(255)
 );
 
 
@@ -314,3 +315,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140509032844');
 INSERT INTO schema_migrations (version) VALUES ('20140512174233');
 
 INSERT INTO schema_migrations (version) VALUES ('20140514231635');
+
+INSERT INTO schema_migrations (version) VALUES ('20140603031224');
