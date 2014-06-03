@@ -23,8 +23,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  # validates :username, uniqueness: true, presence: true,
-  #           exclusion: {in: %w[signout fb_updates]}
+  validates :username, uniqueness: true, presence: true,
+            exclusion: {in: %w[signout fb_updates new admin]}
 
   friendly_id :username, use: [:slugged, :history]
 
@@ -58,7 +58,12 @@ class User < ActiveRecord::Base
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
-      user.username = auth.info.nickname
+      # if the FB username is not defined use the Uid as the username
+      if auth.info.respond_to? :nickname
+        user.username = auth.info.nickname
+      else
+        user.username = auth.uid
+      end
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.image = auth.info.image
