@@ -25,7 +25,7 @@ class UsersController < ApplicationController
           # @users = User.match_gender().any_types_of_dance().close_to()
           # @users = User.want_dance.match_gender().any_types_of_dance().close_to()
     
-          @users = User.want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances]).page(params[:page]).per_page(10)
+          @users = User.no_user(@current_user.username).want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances]).page(params[:page]).per_page(10)
           # puts @users.to_a.inspect
         end
         @pic_urls = []

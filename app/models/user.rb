@@ -30,7 +30,9 @@ class User < ActiveRecord::Base
 
   default_scope { order(created_at: :asc) }
 
-  scope :want_dance, -> { where.not("visibility = ?", 'close') } 
+  scope :want_dance, -> { where.not("visibility = ?", 'close') }
+
+  scope :no_user, -> (username) { where.not("username = ?", username) }
 
   scope :match_gender, -> (gender) { where("gender = ?", gender) }
 
