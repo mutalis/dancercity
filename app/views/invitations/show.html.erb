@@ -3,6 +3,8 @@
 
 <p>You've got an invitation to dance from <%= @invitation.partner.first_name %> <%= @invitation.partner.last_name %>.</p>
 
+<p><%= link_to "Click here to see #{@invitation.partner.first_name} #{@invitation.partner.last_name} profile", "https://www.facebook.com/profile.php?id=#{@invitation.partner.uid}", target: '_blank' %></p>
+
 <% if @invitation.message.present? %>
   <p>Message:<br>
   <%= @invitation.message %></p>
