@@ -44,7 +44,15 @@
               <% end %>
               <div class="clearfix"></div>
 
-              <div id="notices"></div>
+              <div id="notices">
+                <% flash.each do |name, message| %>
+                  <%= content_tag :div, class: 'alert-box success radius', data: {alert: ''} do %>
+                    <%= message %>
+                    <a href="#" class="close">&times;</a>
+                  <% end %>
+                <% end %>
+              </div>
+
               <%= yield %>
             </div>
           </div>
