@@ -1,4 +1,4 @@
-<h1 class="subheader"><%= @user.first_name %> <%= @user.last_name %> profile</h1>
+<h4><%= @user.first_name %> <%= @user.last_name %> profile</h4>
 <p><%= image_tag @user.image %></p>
 
 <p>Sex: <%= @user.gender %></p>
@@ -27,8 +27,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit 'Update profile', name: nil, class: 'button radius' %>
+    <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
   </div>
 
 <% end %>
-
