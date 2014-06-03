@@ -27,9 +27,9 @@
         <aside class="left-off-canvas-menu">
           <ul class="off-canvas-list">
             <li><label>Menu</label></li>
-            <li><a href="#">Dasdboard</a></li>
             <% if current_user %>
               <li><%= link_to 'My Profile', user_path(@current_user) %></li>
+              <li><%= link_to 'Sign out', signout_path, id: 'sign_out' %></li>
             <% end %>
           </ul>
         </aside>
@@ -38,14 +38,13 @@
         <section class="main-section">
           <div class="row">
             <div class="small-12 small-centered columns">
-<div id="notices"></div>
+
               <% if current_user %>
-                Signed in as <strong><%= @current_user.first_name %></strong>!
-                <%= link_to "Sign out", signout_path, id: "sign_out", class: 'button radius' %>
-              <% else %>
-                <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in", class: 'button radius' %>
+                <p class="right">Signed in as <strong><%= @current_user.first_name %></strong> !</p>
               <% end %>
-              
+              <div class="clearfix"></div>
+
+              <div id="notices"></div>
               <%= yield %>
             </div>
           </div>
