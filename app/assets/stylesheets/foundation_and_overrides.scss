@@ -1123,8 +1123,8 @@
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
- $topbar-bg-color: #3B5998;
- $topbar-bg: $topbar-bg-color;
+// $topbar-bg-color: #3B5998;
+// $topbar-bg: $topbar-bg-color;
 
 // Height and margin
 // $topbar-height: 45px;
@@ -1194,3 +1194,12 @@
 // $include-html-visibility-classes: $include-html-classes;
 
 @import 'foundation';
+
+img.border-rounded {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+	padding: 3px;
+}
