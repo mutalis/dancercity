@@ -1,4 +1,3 @@
-$('#user_<%= @invitation.user.id %>').remove();
-$('#notices').show();
-$('#notices').html('<%= j render "shared/notices" %>');
-$('#notices').fadeOut(1600);
+$('#user_<%= @invitation.user.id %>').prepend('<%= j render "shared/notices" %>');
+$('#user_<%= @invitation.user.id %>').fadeOut(10000);
+
