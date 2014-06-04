@@ -51,7 +51,7 @@
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
+$primary-color: #45578F;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -631,7 +631,7 @@
 
 // Off-canvas
 
-// $tabbar-bg: #333;
+$tabbar-bg: #45578F;
 // $tabbar-height: rem-calc(45);
 // $tabbar-line-height: $tabbar-height;
 // $tabbar-color: #FFF;
@@ -1202,4 +1202,11 @@ img.border-rounded {
 	-ms-border-radius: 8px;
 	border-radius: 8px;
 	padding: 3px;
+}
+
+#title_link {
+	a { color: #fff; }
+	a:hover, a:focus {
+		color: #efefef;
+	}
 }
