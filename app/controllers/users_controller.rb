@@ -27,14 +27,14 @@ class UsersController < ApplicationController
           # @users = User.match_gender().any_types_of_dance().close_to()
           # @users = User.want_dance.match_gender().any_types_of_dance().close_to()
     
-          @users = User.no_user(@current_user.username).want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
+          @users = User.no_user(current_user.username).want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
 
           # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
-          @users = @current_user.remove_users_with_pending_invitations(@users).paginate(:page => params[:page], :per_page => 10)
+          @users = current_user.remove_users_with_pending_invitations(@users).paginate(:page => params[:page], :per_page => 10)
         end
         @pic_urls = []
       else # gets a set of user profile images when the search form is blank.
-        @pic_urls = @current_user.friends_pics(12).map {|i| i['pic_square']}
+        @pic_urls = current_user.friends_pics(12).map {|i| i['pic_square']}
       end
     else # no logged 
       # gets a set of user profile images when no logged.
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
     # 
-    # if @current_user.slug != @user.slug
+    # if current_user.slug != @user.slug
     #   raise "Invalid user access."
     # end
   end

@@ -29,7 +29,7 @@
             <li><label>Menu</label></li>
             <li><%= link_to 'Home Page', root_path %></li>
             <% if current_user %>
-              <li><%= link_to 'My Profile', user_path(@current_user) %></li>
+              <li><%= link_to 'My Profile', user_path(current_user) %></li>
               <li><%= link_to 'Sign out', signout_path, id: 'sign_out' %></li>
             <% end %>
             <li><%= link_to 'About Us', about_path %></li>
@@ -44,7 +44,7 @@
             <div class="small-12 small-centered columns">
 
               <% if current_user %>
-                <p class="right">Signed in as <strong><%= @current_user.first_name %></strong> !</p>
+                <p class="right">Signed in as <strong><%= current_user.first_name %></strong> !</p>
               <% end %>
               <div class="clearfix"></div>
 
