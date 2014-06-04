@@ -27,10 +27,14 @@
         <aside class="left-off-canvas-menu">
           <ul class="off-canvas-list">
             <li><label>Menu</label></li>
+            <li><%= link_to 'Home Page', root_path %></li>
             <% if current_user %>
               <li><%= link_to 'My Profile', user_path(@current_user) %></li>
               <li><%= link_to 'Sign out', signout_path, id: 'sign_out' %></li>
             <% end %>
+            <li><%= link_to 'About Us', about_path %></li>
+            <li><%= link_to 'Privacy Policy', privacy_path %></li>
+            <li><%= link_to 'Terms', terms_path %></li>
           </ul>
         </aside>
 

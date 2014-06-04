@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Dancercity::Application.routes.draw do
+  get 'about' => 'pages#about'
+  get 'privacy' => 'pages#privacy'
+  get 'terms' => 'pages#terms'
+
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
