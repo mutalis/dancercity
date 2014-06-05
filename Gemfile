@@ -15,6 +15,7 @@ end
 group :development do
   gem 'rails_db_info'
   gem 'bullet'
+	gem 'capistrano', '2.15.5'
 end
 
 # Use SCSS for stylesheets

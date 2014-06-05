@@ -31,6 +31,12 @@ GEM
     bullet (4.8.0)
       activesupport
       uniform_notifier (>= 1.4.0)
+    capistrano (2.15.5)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coffee-rails (4.0.1)
@@ -61,6 +67,7 @@ GEM
     friendly_id (5.0.3)
       activerecord (>= 4.0.0)
     hashie (2.0.5)
+    highline (1.6.21)
     hike (1.2.3)
     i18n (0.6.9)
     jquery-rails (3.1.0)
@@ -81,6 +88,13 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.0)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     oauth2 (0.9.3)
       faraday (>= 0.8, < 0.10)
       jwt (~> 0.1.8)
@@ -183,6 +197,7 @@ PLATFORMS
 
 DEPENDENCIES
   bullet
+  capistrano (= 2.15.5)
   coffee-rails (~> 4.0.0)
   debugger
   env_bang-rails (= 0.2.9)
