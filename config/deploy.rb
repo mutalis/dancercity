@@ -1,5 +1,4 @@
 require "bundler/capistrano" #Running cap deploy or cap deploy:update will now automatically run bundle install on the remote server with deployment-friendly options.
-require 'sidekiq/capistrano'
 
 set :application, ENV!['APP_NAME']
 set :server_name, "54.84.189.237"

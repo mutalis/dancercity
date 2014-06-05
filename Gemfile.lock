@@ -37,6 +37,9 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    capistrano-sidekiq (0.3.0)
+      capistrano
+      sidekiq
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coffee-rails (4.0.1)
@@ -198,6 +201,7 @@ PLATFORMS
 DEPENDENCIES
   bullet
   capistrano (= 2.15.5)
+  capistrano-sidekiq (= 0.3.0)
   coffee-rails (~> 4.0.0)
   debugger
   env_bang-rails (= 0.2.9)

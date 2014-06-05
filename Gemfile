@@ -16,6 +16,7 @@ group :development do
   gem 'rails_db_info'
   gem 'bullet'
 	gem 'capistrano', '2.15.5'
+	gem 'capistrano-sidekiq', '0.3.0'
 end
 
 # Use SCSS for stylesheets
