@@ -27,7 +27,7 @@ class SendMessage
 
   def facebook_message
     "Invitation to join to Dancer City\n\n
-    See you there. Sign in at: http://dancercity.net\n\n
+    See you there. Sign in at: #{root_url}\n\n
     Dancer City is a new Web App for Facebook for those who like to dance.\n\n
     Meet people that enjoy of the ballroom dancing and make new friends using your Facebook account.\n\n
     Invite someone to dance based on the dancer profile that you are looking for.\n\n
