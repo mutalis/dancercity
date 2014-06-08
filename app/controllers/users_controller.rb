@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     params[:user][:dances].delete_if {|x| x == ''}
 
     if @user.update(user_params)
-      redirect_to root_path, notice: 'The profile was successfully updated.'
+      redirect_to root_path, notice: 'Your profile was successfully updated.'
     else
       render action: 'show'
     end
