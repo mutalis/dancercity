@@ -17,6 +17,7 @@ group :development do
   gem 'bullet'
 	gem 'capistrano', '2.15.5'
 	gem 'capistrano-sidekiq', '0.3.0'
+	gem 'rack-mini-profiler'
 end
 
 # Use SCSS for stylesheets
@@ -53,8 +54,6 @@ gem 'foundation-rails', '5.2.2.0'
 gem 'omniauth-facebook', '1.6.0'
 
 gem 'koala', '1.9.0'
-
-gem 'rack-mini-profiler'
 
 gem 'friendly_id', '5.0.3'
 
