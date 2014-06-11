@@ -1,0 +1,2 @@
+module FbNotificationsHelper
+end

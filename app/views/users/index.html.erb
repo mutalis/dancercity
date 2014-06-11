@@ -1,5 +1,14 @@
 <% if current_user %>
 
+<h4>Your Facebook friends:</h4>
+<ul class="small-block-grid-4 medium-block-grid-12 large-block-grid-12">
+  <% @pic_urls.each do |i| %>
+    <li class="text-center"><%= image_tag(i, class: 'border-rounded') %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Click to notify your Facebook friends that you have started to use Dancer City', fb_notifications_send_path, class: 'small button radius' %>
+
   <%= form_tag users_path, method: :get do %>
 
     <%= label_tag :gender, 'Find out a:', class: 'inline' %>
@@ -10,12 +19,6 @@
 
     <br><%= submit_tag 'Search', name: nil, class: 'tiny button radius' %>
   <% end %>
-
-  <ul class="small-block-grid-4 medium-block-grid-12 large-block-grid-12">
-    <% @pic_urls.each do |i| %>
-      <li class="text-center"><%= image_tag(i, class: 'border-rounded') %></li>
-    <% end %>
-  </ul>
 
   <% if @users %>
     <% if @users.empty? %>
