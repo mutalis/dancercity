@@ -82,6 +82,13 @@ GEM
       addressable
       faraday
       multi_json
+    launchy (2.4.2)
+      addressable (~> 2.3)
+    letter_opener (1.2.0)
+      launchy (~> 2.2)
+    letter_opener_web (1.2.0)
+      letter_opener (~> 1.0)
+      rails (>= 3.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -208,6 +215,7 @@ DEPENDENCIES
   friendly_id (= 5.0.3)
   jquery-rails
   koala (= 1.9.0)
+  letter_opener_web (= 1.2.0)
   omniauth-facebook (= 1.6.0)
   pg (= 0.17.1)
   puma (= 2.8.1)

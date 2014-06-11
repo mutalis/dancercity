@@ -18,6 +18,7 @@ group :development do
 	gem 'capistrano', '2.15.5'
 	gem 'capistrano-sidekiq', '0.3.0'
 	gem 'rack-mini-profiler'
+	gem 'letter_opener_web', '1.2.0'
 end
 
 # Use SCSS for stylesheets

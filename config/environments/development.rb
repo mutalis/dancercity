@@ -17,7 +17,7 @@ Dancercity::Application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_options = {
-    from: 'dancercity_manager@dancercity.net',
+    from: ENV!['SMTP_USER'],
     mime_version: '1.0',
     charset: 'UTF-8',
     content_type: 'text/plain',
@@ -25,6 +25,8 @@ Dancercity::Application.configure do
   }
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.action_mailer.delivery_method = :letter_opener
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
