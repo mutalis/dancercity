@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   extend FriendlyId
 
-  after_create :invite_friends
+#  after_create :invite_friends
 
   has_many :invitations
   has_many :partners, through: :invitations
