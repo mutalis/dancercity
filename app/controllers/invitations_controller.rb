@@ -22,7 +22,7 @@ class InvitationsController < ApplicationController
       @invitation = current_user.sent_invitations.create!(user_id: invited_user.id, date: Time.now, message: params[:invitation][:message])
       # @invitation = current_user.sent_invitations.create!(invitation_params)
       # redirect_to :back, notice: "The invitation has been sent."
-      ManagerMailer.new_invitation(invited_user.email, new_inv_message(@invitation))
+      ManagerMailer.new_invitation(invited_user.email, new_inv_message(@invitation)).deliver
       # send_facebook_message(invited_user, new_inv_message(@invitation))
       flash.now[:notice] = "The invitation to #{invited_user.first_name} has been sent."
     else
@@ -34,7 +34,7 @@ class InvitationsController < ApplicationController
     if (current_user.slug == params[:user_id]) && (params[:ans] == 'accepted' || params[:ans] == 'rejected')
 
      if @invitation.update(status: params[:ans])
-       ManagerMailer.response_to_invitation(@invitation.partner.email, response_inv_message(params[:ans]))
+       ManagerMailer.response_to_invitation(@invitation.partner.email, response_inv_message(params[:ans])).deliver
        # send_facebook_message(@invitation.partner, response_inv_message(params[:ans]))
        flash.now[:notice] = "You've #{params[:ans]} the invitation from #{@invitation.partner.first_name} #{@invitation.partner.last_name} ."
      end

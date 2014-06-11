@@ -1,6 +1,6 @@
 class ManagerMailer < ActionMailer::Base
-  default from: 'dancercity_manager@dancercity.net',
-          reply_to: 'dancercity_manager@dancercity.net'
+  default from: ENV!['SMTP_USER'],
+          reply_to: ENV!['SMTP_USER']
 
   def new_invitation(email, message)
     mail(to: email, subject: "You've got a new invitation in Dancer City",

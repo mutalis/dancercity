@@ -68,7 +68,7 @@ Dancercity::Application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.default_options = {
-    from: 'dancercity_manager@dancercity.net',
+    from: ENV!['SMTP_USER'],
     mime_version: '1.0',
     charset: 'UTF-8',
     content_type: 'text/plain',
