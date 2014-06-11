@@ -64,6 +64,8 @@ gem 'xmpp4r_facebook', '0.1.1'
 
 gem 'sidekiq', '3.1.2'
 
+gem 'email_validator', '1.4.0'
+
 # To display the current state of Sidekiq
 gem 'sinatra', '1.4.5', require: false
 gem 'slim', '2.0.0'

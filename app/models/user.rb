@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true, presence: true,
             exclusion: {in: %w[signout fb_updates new admin about privacy terms]}
 
+  validates :email, :email => {:strict_mode => true}
+
   friendly_id :username, use: [:slugged, :history]
 
   # Throws an exception if a new invitation is a duplicate from a previous one sent to

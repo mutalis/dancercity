@@ -1,30 +1,30 @@
 <h4><%= @user.first_name %> <%= @user.last_name %> profile</h4>
+
 <p><%= image_tag @user.image, class: 'border-rounded' %></p>
+
+<% if @user.errors.any? %>
+  <%= content_tag :div, class: 'alert-box alert radius', data: {alert: ''} do %>
+    <p><%= pluralize(@user.errors.count, "error") %> prohibited this profile from being saved:</p>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    <a href="#" class="close">&times;</a>
+  <% end %>
+<% end %>
 
 <p>Sex: <%= @user.gender %></p>
 
 <p>Choose what do you like to dance ?</p>
 
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <%= f.collection_check_boxes :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s %>
 
-    <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
+  <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
 
-  <div class="field">
-    <%= f.collection_check_boxes :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s %>
-  </div>
-
-  <div class="field">
-    <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
-  </div>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
 
   <div class="actions">
     <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
