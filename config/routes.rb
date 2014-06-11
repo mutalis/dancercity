@@ -29,4 +29,7 @@ Dancercity::Application.routes.draw do
 
   mount Sidekiq::Web, at: "bg/monitor"
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "bg/mail"
+  end
 end
