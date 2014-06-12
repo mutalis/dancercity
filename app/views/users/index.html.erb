@@ -7,7 +7,9 @@
   <% end %>
 </ul>
 
-<%= link_to 'Click to notify your Facebook friends that you have started to use Dancer City', fb_notifications_send_path, class: 'small button radius' %>
+<% unless current_user.friends_invitations_sent? %>
+  <%= link_to 'Click to notify your Facebook friends that you have started to use Dancer City', fb_notifications_send_path, class: 'small button radius' %>
+<% end %>
 
   <%= form_tag users_path, method: :get do %>
 

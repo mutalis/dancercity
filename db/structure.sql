@@ -145,7 +145,8 @@ CREATE TABLE users (
     dances text[] DEFAULT '{}'::text[],
     slug character varying(255),
     visibility character varying(255),
-    current_location character varying(255)
+    current_location character varying(255),
+    friends_invitations_sent boolean DEFAULT false
 );
 
 
@@ -317,3 +318,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140512174233');
 INSERT INTO schema_migrations (version) VALUES ('20140514231635');
 
 INSERT INTO schema_migrations (version) VALUES ('20140603031224');
+
+INSERT INTO schema_migrations (version) VALUES ('20140611212333');

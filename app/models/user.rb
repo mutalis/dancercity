@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
   extend FriendlyId
 
-#  after_create :invite_friends
-
   has_many :invitations
   has_many :partners, through: :invitations
 
@@ -115,21 +113,26 @@ class User < ActiveRecord::Base
   end
   
   def friends_uids(uids_number = 10000000)
-    facebook { |fb| fb.fql_query("select uid from user where uid in (select uid2 from friend where uid1 = me()) limit #{uids_number}") }
-    # [{"uid"=>"100000334781484"}, {"uid"=>"100002981817359"}]
+    facebook { |fb| fb.fql_query("select uid, first_name from user where uid in (select uid2 from friend where uid1 = me()) limit #{uids_number}") }
+    # [{"uid"=>"504589798", "first_name"=>"Lorena"}, {"uid"=>"504773652", "first_name"=>"Grace"}]
   end
 
   def friends_count
     facebook { |fb| fb.get_connections("me", "friends").size }
   end
 
-  protected
+  def friends_invitations_sent?
+    self.friends_invitations_sent
+  end
 
   # Send a private message to the friends of the user to invite them to sign up to Dancer City.
   def invite_friends
     logger.info 'Send FB sign up invitations'
-    SendMessage.perform_async(self.uid, self.friends_uids(30), self.oauth_token)
+    SendMessage.perform_async(self.uid, self.friends_uids, self.oauth_token)
+    self.friends_invitations_sent = true
+    self.save!
   end
+
   # def send_facebook_message
   #   # receiver_chat_id   = "-#{receiver_uid}@chat.facebook.com"
   #   # receiver_chat_id   = "-100002981817359@chat.facebook.com"
