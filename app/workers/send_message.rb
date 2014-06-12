@@ -29,7 +29,7 @@ class SendMessage
   def facebook_message(first_name)
     "Hello #{first_name}\nI'm using Dancer City Facebook App.\n\n
     You can try it at: http://www.dancercity.net\n
-    See you there.\n\n
+    See you there.\n\n------------------------------
     Invitation to join to Dancer City:\n\n
     Sign in at: http://www.dancercity.net\n\n
     Dancer City is a new Web App for Facebook for those who like to dance.\n\n
