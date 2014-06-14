@@ -3,7 +3,7 @@
     <li>
       <%= image_tag user.image, class: 'border-rounded' %>
 
-      <strong><%= user.first_name %> <%= user.last_name %></strong>
+      <strong><%= link_to "#{user.first_name} #{user.last_name}", "https://www.facebook.com/profile.php?id=#{user.uid}", target: '_blank' %></strong>
       likes to dance:<br>
       <% user.dances.each do |dance| %>
         <%= dance %>
