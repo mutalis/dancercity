@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   extend FriendlyId
 
+  after_create :notify_admin_by_email
+
   has_many :invitations
   has_many :partners, through: :invitations
 
@@ -131,6 +133,11 @@ class User < ActiveRecord::Base
     SendMessage.perform_async(self.uid, self.friends_uids, self.oauth_token)
     self.friends_invitations_sent = true
     self.save!
+  end
+
+  # Send email with the settings of the user.
+  def notify_admin_by_email
+    ManagerMailer.new_signin_notification(self).deliver
   end
 
   # def send_facebook_message
