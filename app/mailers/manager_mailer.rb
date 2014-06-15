@@ -17,6 +17,6 @@ class ManagerMailer < ActionMailer::Base
     mail(to: 'rodolfo@mutalis.com', subject: 'New DancerCity Sign in',
          content_type: 'text/plain',
          body: "New DancerCity user: #{user.first_name} #{user.last_name}\n Gender: #{user.gender}\n
-         Dances: #{user.dances}\n Location: #{user.current_location}")
+         Dances: #{user.dances.join(' ')}\n Location: #{user.current_location}")
   end
 end
