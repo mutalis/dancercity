@@ -4,10 +4,13 @@
 
 <% if @user.errors.any? %>
   <%= content_tag :div, class: 'alert-box alert radius', data: {alert: ''} do %>
-    <p><%= pluralize(@user.errors.count, "error") %> prohibited this profile from being saved:</p>
     <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+    <% @user.errors.messages.each do |key, msg| %>
+      <% if key == :dances %>
+        <li><%= msg[0] %></li>
+      <% else %>
+        <li><%= key %> <%= msg[0] %></li>
+      <% end %>
     <% end %>
     </ul>
     <a href="#" class="close">&times;</a>

@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   validates :email, :email => {:strict_mode => true}
 
+  validates_presence_of :dances, message: 'Choose at least one dance style'
+
   friendly_id :username, use: [:slugged, :history]
 
   # Throws an exception if a new invitation is a duplicate from a previous one sent to
