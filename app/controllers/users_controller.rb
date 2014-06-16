@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'will_paginate/array'
 
 class UsersController < ApplicationController
@@ -19,12 +21,27 @@ class UsersController < ApplicationController
           flash.now[:error] = 'Please allow Dancer City to post a message on your Facebook wall. Please try again.'
         end
       else
-        @fb_post = "Dancer City is a new Web App for Facebook for those who like to dance.\n\nSign in at: http://www.dancercity.net\n
-        - Meet people that enjoy of the ballroom dancing and make new friends using your Facebook account.\n
-        - Invite someone to dance based on the dancer profile that you are looking for.\n
-        - Find people who like to dance:\n
-        Bachata, Cha-cha-chá, Conga, Cumbia, Danzón, Fox-Trot, Jazz, Kizomba, Merengue, Pasodoble, Rock and roll, Rumba, Salsa, Swing, Tango.\n
-        - All this services are Free !\n"
+        fb_locale = current_user.facebook.fql_query("SELECT locale FROM user WHERE uid = me()")
+        fb_locale = fb_locale[0]["locale"]
+
+        if (fb_locale =~ Regexp.new('\Aes_')) == 0
+          @fb_post = "Si buscas pareja de baile, o quieres conocer a nuevas personas, en Dancer City las puedes encontrar.\n\n
+          Dancer City es un servicio gratis especialmente diseñado para este fin.\n
+          Entra al Sitio http://www.dancercity.net para conocer más detalles.\n
+          - Dancer City es una nueva Web App para Facebook para quienes les gusta bailar.\n
+          - Encuentra fácil, rápido y automáticamente a nuevas personas para bailar.\n
+          - Puedes conocer nuevas personas para bailar en función de las preferencias que definas.\n
+          - Encuentra a gente que baila:\n
+            Bachata, Cha-cha-chá, Conga, Cumbia, Danzón, Fox-Trot, Jazz, Kizomba, Merengue, Pasodoble, Rock and roll, Rumba, Salsa, Swing, Tango\n
+          - Todos estos servicios son Gratis !\n"
+        else
+          @fb_post = "Dancer City is a new Web App for Facebook for those who like to dance.\n\nSign in at: http://www.dancercity.net\n
+          - Meet people that enjoy of the ballroom dancing and make new friends using your Facebook account.\n
+          - Invite someone to dance based on the dancer profile that you are looking for.\n
+          - Find people who like to dance:\n
+            Bachata, Cha-cha-chá, Conga, Cumbia, Danzón, Fox-Trot, Jazz, Kizomba, Merengue, Pasodoble, Rock and roll, Rumba, Salsa, Swing, Tango.\n
+          - All this services are Free !\n"
+        end
       end
 
       # gets the users that match the search criteria
