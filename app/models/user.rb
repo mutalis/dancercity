@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :sent_pending_invitations, -> { where status: 'pending' }, class_name: "Invitation", foreign_key: "partner_id"
   
   validates :username, uniqueness: true, presence: true,
-            exclusion: {in: %w[signout fb_updates new admin about privacy terms fb_notifications]}
+            exclusion: {in: %w[signout fb_updates new admin about privacy terms]}
 
   validates :email, :email => {:strict_mode => true}
 

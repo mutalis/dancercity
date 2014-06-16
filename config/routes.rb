@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Dancercity::Application.routes.draw do
   get 'fb_notifications/send_message', as: 'fb_notifications_send'
+  get 'fb_notifications/post_to_wall', as: 'fb_notifications_wall'
   get 'about' => 'pages#about'
   get 'privacy' => 'pages#privacy'
   get 'terms' => 'pages#terms'

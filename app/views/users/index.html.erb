@@ -6,11 +6,16 @@
     <li class="text-center"><%= image_tag(i, class: 'border-rounded') %></li>
   <% end %>
 </ul>
+<p>Let your friends know that you are using Dancer City so that they can use it too.</p>
 
-<% unless current_user.friends_invitations_sent? %>
-  <%= link_to 'Click to notify your Facebook friends that you have started to use Dancer City', fb_notifications_send_path, class: 'small button radius' %>
+<p>Post in your Facebook wall through Dancer City:</p>
+
+<%= form_tag fb_notifications_wall_path, method: :get do %>
+  <%= text_area_tag :fb_post, @fb_post, rows: 15, cols: 10, class: 'radius' %>
+  <%= submit_tag 'Send post', name: nil, class: 'tiny button radius' %>
 <% end %>
 
+<h4>Dancers search engine</h4>
   <%= form_tag users_path, method: :get do %>
 
     <%= label_tag :gender, 'Find out a:', class: 'inline' %>
@@ -25,6 +30,9 @@
   <% if @users %>
     <% if @users.empty? %>
       <p>There is not any person that match your search criteria at this time. Please try again later.</p>
+      <% unless current_user.friends_invitations_sent? %>
+        <%= link_to 'Click to notify your Facebook friends that you have started to use Dancer City', fb_notifications_send_path, class: 'small button radius' %>
+      <% end %>
       <% else %>
         <p>The following persons match your search criteria:</p>
         <div id="users"><%= render @users %></div>

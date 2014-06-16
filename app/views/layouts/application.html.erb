@@ -59,10 +59,11 @@
                 <p class="right">Signed in as <strong><%= current_user.first_name %></strong> !</p>
               <% end %>
               <div class="clearfix"></div>
-
               <div id="notices">
+                <% color = 'success' %>
                 <% flash.each do |name, message| %>
-                  <%= content_tag :div, class: 'alert-box success radius', data: {alert: ''} do %>
+                  <% color = 'alert' if name == :error %>
+                  <%= content_tag :div, class: "alert-box #{color} radius", data: {alert: ''} do %>
                     <%= message %>
                     <a href="#" class="close">&times;</a>
                   <% end %>
