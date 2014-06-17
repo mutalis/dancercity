@@ -16,7 +16,6 @@ class ManagerMailer < ActionMailer::Base
   def new_signin_notification(user)
     mail(to: 'rodolfo@mutalis.com', subject: 'New DancerCity Sign in',
          content_type: 'text/plain',
-         body: "New DancerCity user: #{user.first_name} #{user.last_name}\n Gender: #{user.gender}\n
-         Dances: #{user.dances.join(' ')}\n Location: #{user.current_location}")
+         body: "New DancerCity user: #{user.first_name} #{user.last_name}\n\n Gender: #{user.gender}\n\n Username: #{user.username}\n\n Location: #{user.current_location}")
   end
 end
