@@ -10,6 +10,7 @@ group :development, :test do
 	# Use debugger
 	gem 'debugger'
 	gem 'puma', '2.8.1'
+	gem 'jazz_hands'
 end
 
 group :development do
