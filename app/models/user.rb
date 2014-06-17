@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
         user.longitude = current_location['location']['longitude']
         user.latitude = current_location['location']['latitude']
       end
-      user.save!
+      user.save!(validate: false)
     end
   end
 
