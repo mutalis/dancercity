@@ -1,23 +1,56 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  the_comments:
+    incoming: "Incoming:"
+    in_system: "In system:"
+    written_by_me: "Written by me:"
+    back_to_root: "&larr; To root"
+
+    my_comments:        "My comments (%{num})"
+    draft_comments:     "New (%{num})"
+    published_comments: "Published (%{num})"
+    deleted_comments:   "Deleted (%{num})"
+    spam_comments:      "Spam (%{num})"
+
+    management: Comments management
+    new: "New message"
+    update: "Update message"
+    additional_info: "Additional info"
+    cancel: "Cancel"
+
+    title: "Title on name:"
+    contacts: "Contacts:"
+    content: "Message:"
+
+    guest_name: Guest
+    reply: Reply to this message
+    edit: Edit
+    to_spam: Spam!
+    to_draft: Draft
+    to_published: Publicate
+    to_deleted:   Delete
+
+    no_comments_here: No comments here
+
+    nav:
+      header: "Navigation"
+
+    form:
+      title: "Your name:"
+      contacts: "Contacts (only admin can see this):"
+      content: "Message* :"
+      create: "Send message"
+      thank_you:  "Thank you!"
+
+    trap: Trap
+    trap_message: should be empty
+
+    tolerance_time: Page view time
+    tolerance_time_message: "Please wait %{time} seconds before send a comment and try again"
+
+    delete_confirm: Are you sure?
+
+    cookies: Cookies
+    cookies_required: 'Please enable cookies and try to reload page'
+    ajax_requests_required: 'Sorry, JavaScript/Ajax Requests required'
+    waiting_for_moderation: Waiting for moderation
+    undefined_commentable: Commentable object is undefined

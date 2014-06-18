@@ -16,7 +16,7 @@
     <li>
       <%= form_for([user, Invitation.new], remote: true) do |f| %>
         <%= f.text_area :message, rows: 2, placeholder: 'Message', class: 'radius' %>
-        <%= f.submit 'Send invitation', name: nil, class: 'tiny button radius' %>
+        <%= f.submit 'Send message', name: nil, class: 'tiny button radius' %>
       <% end %>
     </li>
   </ul>

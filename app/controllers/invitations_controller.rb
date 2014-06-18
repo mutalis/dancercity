@@ -1,5 +1,6 @@
 class InvitationsController < ApplicationController
-  before_action :set_invitation, only: [:show, :update]
+  before_action :set_invitation, only: [:update]
+  before_action :show_set_invitation, only: [:show]
 
   # respond_to :js
 
@@ -12,7 +13,12 @@ class InvitationsController < ApplicationController
   end
 
   def show
-    render nothing: true, status: :unauthorized if current_user.slug != params[:user_id]
+    @is_inviter = (@invitation.partner.slug == params[:user_id])
+    if (current_user.slug == params[:user_id]) || (@is_inviter)
+      @comments = @invitation.comments.includes(:user)
+    else
+      render nothing: true, status: :unauthorized
+    end
   end
   
   def create
@@ -45,6 +51,10 @@ class InvitationsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_invitation
     @invitation = current_user.invitations.find(params[:id]) if current_user
+  end
+  
+  def show_set_invitation
+    @invitation = Invitation.find(params[:id]) if current_user
   end
 
   def send_facebook_message(receiver, message)

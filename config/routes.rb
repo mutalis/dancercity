@@ -25,6 +25,10 @@ Dancercity::Application.routes.draw do
 
   resources :users, path: '', except: :index
 
+  # TheComments routes
+   concern   :user_comments,  TheComments::UserRoutes.new
+   resources :comments, concerns:  [:user_comments]
+
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == 'rasg' && password == 'kiaqloo9sw'
   end

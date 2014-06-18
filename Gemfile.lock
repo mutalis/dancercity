@@ -27,6 +27,8 @@ GEM
       tzinfo (~> 0.3.37)
     addressable (2.3.6)
     arel (4.0.2)
+    awesome_nested_set (2.1.6)
+      activerecord (>= 3.0.0)
     awesome_print (1.2.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -83,6 +85,8 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
+    haml (4.0.5)
+      tilt
     hashie (2.1.1)
     highline (1.6.21)
     hike (1.2.3)
@@ -235,7 +239,13 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    state_machine (1.2.0)
     temple (0.6.7)
+    the_comments (2.2.1)
+      state_machine
+      the_sortable_tree
+    the_sortable_tree (2.5.0)
+      rails (>= 3.1)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -258,6 +268,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_nested_set (= 2.1.6)
   bullet
   capistrano (= 2.15.5)
   capistrano-sidekiq (= 0.3.0)
@@ -267,6 +278,7 @@ DEPENDENCIES
   env_bang-rails (= 0.2.9)
   foundation-rails (= 5.2.3.0)
   friendly_id (= 5.0.3)
+  haml
   jazz_hands
   jquery-rails
   koala (= 1.9.0)
@@ -282,6 +294,7 @@ DEPENDENCIES
   sidekiq (= 3.1.2)
   sinatra (= 1.4.5)
   slim (= 2.0.0)
+  the_comments (= 2.2.1)
   uglifier (>= 1.3.0)
   will_paginate (= 3.0.5)
   xmpp4r_facebook (= 0.1.1)

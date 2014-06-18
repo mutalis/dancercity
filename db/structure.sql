@@ -44,6 +44,59 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE comments (
+    id integer NOT NULL,
+    user_id integer,
+    holder_id integer,
+    commentable_id integer,
+    commentable_type character varying(255),
+    commentable_url character varying(255),
+    commentable_title character varying(255),
+    commentable_state character varying(255),
+    anchor character varying(255),
+    title character varying(255),
+    contacts character varying(255),
+    raw_content text,
+    content text,
+    view_token character varying(255),
+    state character varying(255) DEFAULT 'draft'::character varying,
+    ip character varying(255) DEFAULT 'undefined'::character varying,
+    referer character varying(255) DEFAULT 'undefined'::character varying,
+    user_agent character varying(255) DEFAULT 'undefined'::character varying,
+    tolerance_time integer,
+    spam boolean DEFAULT false,
+    parent_id integer,
+    lft integer,
+    rgt integer,
+    depth integer DEFAULT 0,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
 -- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -90,7 +143,10 @@ CREATE TABLE invitations (
     user_id integer,
     partner_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    draft_comments_count integer DEFAULT 0,
+    published_comments_count integer DEFAULT 0,
+    deleted_comments_count integer DEFAULT 0
 );
 
 
@@ -146,7 +202,14 @@ CREATE TABLE users (
     slug character varying(255),
     visibility character varying(255),
     current_location character varying(255),
-    friends_invitations_sent boolean DEFAULT false
+    friends_invitations_sent boolean DEFAULT false,
+    my_draft_comments_count integer DEFAULT 0,
+    my_published_comments_count integer DEFAULT 0,
+    my_comments_count integer DEFAULT 0,
+    draft_comcoms_count integer DEFAULT 0,
+    published_comcoms_count integer DEFAULT 0,
+    deleted_comcoms_count integer DEFAULT 0,
+    spam_comcoms_count integer DEFAULT 0
 );
 
 
@@ -173,6 +236,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly_id_slugs_id_seq'::regclass);
 
 
@@ -188,6 +258,14 @@ ALTER TABLE ONLY invitations ALTER COLUMN id SET DEFAULT nextval('invitations_id
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -320,3 +398,9 @@ INSERT INTO schema_migrations (version) VALUES ('20140514231635');
 INSERT INTO schema_migrations (version) VALUES ('20140603031224');
 
 INSERT INTO schema_migrations (version) VALUES ('20140611212333');
+
+INSERT INTO schema_migrations (version) VALUES ('20140617220957');
+
+INSERT INTO schema_migrations (version) VALUES ('20140617220958');
+
+INSERT INTO schema_migrations (version) VALUES ('20140617220959');

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include TheComments::User
   extend FriendlyId
 
   after_create :notify_admin_by_email
@@ -15,13 +16,22 @@ class User < ActiveRecord::Base
   has_many :sent_pending_invitations, -> { where status: 'pending' }, class_name: "Invitation", foreign_key: "partner_id"
   
   validates :username, uniqueness: true, presence: true,
-            exclusion: {in: %w[signout fb_updates new admin about privacy terms]}
+            exclusion: {in: %w[signout fb_updates new admin about privacy terms comments]}
 
   validates :email, :email => {:strict_mode => true}
 
   validates_presence_of :dances, message: 'Choose at least one dance style'
 
   friendly_id :username, use: [:slugged, :history]
+
+  def admin?
+    false
+    # self == User.find_by username: 'tangohoy1'
+  end
+
+  def comments_admin?
+    admin?
+  end
 
   # Throws an exception if a new invitation is a duplicate from a previous one sent to
   # the same person with the same date.

@@ -70,3 +70,9 @@ gem 'email_validator', '1.4.0'
 # To display the current state of Sidekiq
 gem 'sinatra', '1.4.5', require: false
 gem 'slim', '2.0.0'
+
+gem 'the_comments', '2.2.1'
+
+gem 'awesome_nested_set', '2.1.6'
+
+gem 'haml'
