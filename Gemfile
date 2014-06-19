@@ -75,4 +75,4 @@ gem 'the_comments', '2.2.1'
 
 gem 'awesome_nested_set', '2.1.6'
 
-gem 'haml'
+gem 'haml', '4.0.5'
