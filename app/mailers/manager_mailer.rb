@@ -7,6 +7,12 @@ class ManagerMailer < ActionMailer::Base
          body: message)
   end
 
+  def invitation_sent(email, message)
+    mail(to: email, subject: "You have a new conversation in Dancer City",
+    content_type: 'text/plain',
+    body: message)
+  end
+
   def response_to_invitation(email, message)
     mail(to: email, subject: 'Answer to the invitation that you sent - Dancer City',
          content_type: 'text/plain',

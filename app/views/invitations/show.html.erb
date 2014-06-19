@@ -14,7 +14,8 @@
 
   <p>Invitation status: <%= @invitation.status %></p>
 
-  <% unless @is_inviter %>
+  <% # Only show the respond form to the invitation owner, it means the invitee. %>
+  <% if @is_invitee %>
     <p>Do you accept this invitation ?</p>
 
     <%= link_to "Yes", user_invitation_path(@invitation.user, @invitation, ans: 'accepted'), method: :put, remote: true, class: 'tiny button radius' %>
