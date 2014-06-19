@@ -14,10 +14,17 @@ class InvitationsController < ApplicationController
 
   def show
     @is_inviter = (@invitation.partner.slug == params[:user_id])
-    if (current_user.slug == params[:user_id]) || (@is_inviter)
-      @comments = @invitation.comments.includes(:user)
+    @is_invitee = (@invitation.user.slug == params[:user_id])
+
+    # Checks that the slug Url match with current user slug
+    if (current_user.slug == params[:user_id])
+      if @is_inviter || @is_invitee
+        @comments = @invitation.comments.includes(:user)
+      else
+        render nothing: true, status: :unauthorized
+      end
     else
-      render nothing: true, status: :unauthorized
+      redirect_to root_path
     end
   end
   
@@ -29,6 +36,7 @@ class InvitationsController < ApplicationController
       # @invitation = current_user.sent_invitations.create!(invitation_params)
       # redirect_to :back, notice: "The invitation has been sent."
       ManagerMailer.new_invitation(invited_user.email, new_inv_message(@invitation)).deliver
+      ManagerMailer.invitation_sent(current_user.email, sent_inv_message(@invitation)).deliver
       # send_facebook_message(invited_user, new_inv_message(@invitation))
       flash.now[:notice] = "The invitation to #{invited_user.first_name} has been sent."
     else
@@ -80,7 +88,13 @@ class InvitationsController < ApplicationController
     You've got an invitation to dance from #{current_user.first_name} #{current_user.last_name}.\n\n
     Please see the details at: #{user_invitation_url(invitation.user, invitation)}"
   end
-  
+
+  def sent_inv_message(invitation)
+    "Dancer City notification:\n\n
+    You sent a message to #{invitation.user.first_name} #{invitation.user.last_name}.\n\n
+    You can follow up this conversation at: #{user_invitation_url(invitation.partner, invitation)}"
+  end
+
   def response_inv_message(answer)
     message = "Dancer City notification:\n\n #{current_user.first_name} #{current_user.last_name}"
     if answer == 'rejected'
