@@ -95,7 +95,7 @@ module RenderCommentsTreeHelper
 
       def reply
         if @comment.depth < (@max_reply_depth - 1)
-          "<p class='reply'><a href='#' class='tiny button radius'>#{ t('the_comments.reply') }</a>"
+          "<p class='reply'><a href='#' class='reply_link'>#{ t('the_comments.reply') }</a>"
         end
       end
 
