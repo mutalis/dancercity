@@ -278,7 +278,7 @@ DEPENDENCIES
   env_bang-rails (= 0.2.9)
   foundation-rails (= 5.2.3.0)
   friendly_id (= 5.0.3)
-  haml
+  haml (= 4.0.5)
   jazz_hands
   jquery-rails
   koala (= 1.9.0)
