@@ -1,4 +1,5 @@
 class InvitationsController < ApplicationController
+  before_action :check_user_settings
   before_action :set_invitation, only: [:update]
   before_action :show_set_invitation, only: [:show]
 

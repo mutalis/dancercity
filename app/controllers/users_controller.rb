@@ -3,6 +3,7 @@
 require 'will_paginate/array'
 
 class UsersController < ApplicationController
+  before_action :check_user_settings, except: [:show, :update]
   before_action :set_user, only: [:show, :update]
 
   # GET /
