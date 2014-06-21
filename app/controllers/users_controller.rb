@@ -97,24 +97,8 @@ class UsersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    # @user = User.friendly.find params[:id]
     @user = current_user
-
-    # if the user is not logged in redirect to the login page.
-    if @user
-      # If an old id or a numeric id was used to find the record, then
-      # the request path will not match the user_path, and we should do
-      # a 301 redirect that uses the current friendly id.
-      if request.path != user_path(@user)
-        return redirect_to @user, status: :moved_permanently
-      end
-    else
-      redirect_to root_path
-    end
-    # 
-    # if current_user.slug != @user.slug
-    #   raise "Invalid user access."
-    # end
+    redirect_to root_path unless @user
   end
 
   # Only allow a trusted parameter "white list" through.
