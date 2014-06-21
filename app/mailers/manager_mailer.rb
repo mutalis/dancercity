@@ -1,6 +1,12 @@
 class ManagerMailer < ActionMailer::Base
   default from: ENV!['SMTP_USER']
 
+  def got_new_message(email, message)
+    mail(to: email, subject: "You've got a new message on Dancer City",
+         content_type: 'text/plain',
+         body: message)
+  end
+
   def new_invitation(email, message)
     mail(to: email, subject: "You've got a new invitation in Dancer City",
          content_type: 'text/plain',

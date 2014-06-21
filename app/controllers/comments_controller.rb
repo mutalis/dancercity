@@ -21,6 +21,32 @@ class CommentsController < ApplicationController
   # %w[ to_draft to_published to_deleted to_spam ]
   # %w[ total_draft total_published total_deleted total_spam ]
   #
+  def create
+    @comment = @commentable.comments.new comment_params
+    if @comment.valid?
+      @comment.save
+
+      comment_writer = @comment.user
+      
+      invitation = @comment.commentable
+      if invitation.user_id == comment_writer.id
+        recepient = invitation.partner
+      else
+        recepient = invitation.user
+      end
+      ManagerMailer.got_new_message(recepient.email, new_comment_message(comment_writer, recepient, invitation)).deliver
+      return render layout: false, partial: comment_partial(:comment), locals: { tree: @comment }
+    end
+    render json: { errors: @comment.errors }
+  end
+
+  private
+  
+  def new_comment_message(comment_writer, recepient, invitation)
+    "Dancer City notification:\n\n
+    You've got a new message from #{comment_writer.first_name} #{comment_writer.last_name}.\n\n
+    You can follow up this conversation at: #{user_invitation_url(recepient, invitation)}"
+  end
   #
   # 2. Controller's private methods list:
   # You can redifine it for your purposes
