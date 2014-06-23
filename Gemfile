@@ -51,7 +51,7 @@ end
 # environment variables manager https://github.com/jcamenisch/ENV_BANG/
 gem 'env_bang-rails', '0.2.9'
 
-gem 'foundation-rails', '5.2.3.0'
+gem 'foundation-rails', '5.3.0.1'
 
 gem 'omniauth-facebook', '1.6.0'
 
