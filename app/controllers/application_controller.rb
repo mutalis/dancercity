@@ -10,15 +10,18 @@ class ApplicationController < ActionController::Base
   def check_user_settings
     if current_user
       error_message = ''
+      if (current_user.current_location == nil)
+        error_message = "Please enter your current location."
+      end
       if (current_user.email == nil)
-        error_message = "Please add an email to your profile."
+        error_message = " Please add an email to your profile."
       end
       if (current_user.dances == [])
         error_message += ' Please choose at least one dance style.'        
       end
       unless error_message == ''
         flash[:error] = error_message
-        redirect_to user_path(current_user) 
+        redirect_to user_path(current_user)
       end
     end
   end

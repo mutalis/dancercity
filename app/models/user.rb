@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :dances, message: 'Choose at least one dance style'
 
-  validates_presence_of :current_location
+  validates_presence_of :current_location, message: 'Please enter your current location.'
 
   friendly_id :username, use: [:slugged, :history]
 

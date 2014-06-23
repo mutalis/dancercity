@@ -6,7 +6,7 @@
   <%= content_tag :div, class: 'alert-box alert radius', data: {alert: ''} do %>
     <ul>
     <% @user.errors.messages.each do |key, msg| %>
-      <% if key == :dances %>
+      <% if (key == :dances) || (key == :current_location) %>
         <li><%= msg[0] %></li>
       <% else %>
         <li><%= key %> <%= msg[0] %></li>
