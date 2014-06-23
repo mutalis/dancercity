@@ -28,9 +28,18 @@
 
   <%= f.label :email %>
   <%= f.text_field :email %>
+  <%= f.label :current_location %>
+  <div class="row">
+    <div class="small-7 columns">
 
-  <div class="actions">
-    <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
+  <%= f.text_field :current_location, placeholder: 'Enter your current location', id: 'profile_current_location', size: '40' %>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <div class="small-5 columns">
+      <div id="profile_user_coords"></div>
+      <div class="actions">
+        <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
+      </div>
+    </div>
   </div>
-
 <% end %>

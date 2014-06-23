@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require foundation
 //= require the_comments
+//= require typeahead
+//= require typeahead-addresspicker
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

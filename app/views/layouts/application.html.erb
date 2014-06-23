@@ -8,6 +8,8 @@
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" %>
+
     <%= csrf_meta_tags %>
 
     <script>
@@ -80,5 +82,23 @@
       </div>
     </div>
     <%= javascript_include_tag "application" %>
+    
+    <script type="text/javascript">
+
+      function getResults(result, divid) {
+        divid.html("<input id=\"user_latitude\" name=\"user[latitude]\" type=\"hidden\"  value=\""+ result.lat() + "\"/>\n <input id=\"user_longitude\" name=\"user[longitude]\" type=\"hidden\"  value=\""+ result.lng() + "\"/>").text();
+      }
+
+      $( function() {
+      	var addressPicker = new AddressPicker();
+      	$('#profile_current_location').typeahead(null, {
+      	  displayKey: 'description',
+      	  source: addressPicker.ttAdapter()
+      	});
+      	addressPicker.bindDefaultTypeaheadEvent($('#profile_current_location'))
+        $(addressPicker).on('addresspicker:selected', function (event, result) { getResults(result, $('#profile_user_coords'))})
+      })
+    </script>
+    
   </body>
 </html>

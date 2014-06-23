@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :dances, message: 'Choose at least one dance style'
 
+  validates_presence_of :current_location
+
   friendly_id :username, use: [:slugged, :history]
 
   def admin?
