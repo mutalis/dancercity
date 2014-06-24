@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   # GET /
   def index
     if current_user
-      @pic_urls = current_user.friends_pics(12).map {|i| i['pic_square']}
+
+      # Show the post to wall form
       if session[:fb_post]
         @fb_post = session[:fb_post]
         session[:fb_post] = nil
@@ -70,9 +71,9 @@ class UsersController < ApplicationController
           # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
           @users = current_user.remove_users_with_pending_invitations(@users).paginate(:page => params[:page], :per_page => 10)
         end
-      else # gets a set of user profile images when the search form is blank.
-      end
-    else # no logged 
+      else
+      end # unless
+    else # no logged
       # gets a set of user profile images when no logged.
       @pic_urls = User.want_dance.limit(32).map {|i| i['image']}
     end

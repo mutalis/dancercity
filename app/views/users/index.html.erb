@@ -1,5 +1,6 @@
 <% if current_user %>
 
+<% if params[:user].blank? && params[:gender].blank? %>
 <div class="panel radius">
   <h4>Let your friends know that you are using Dancer City so that they can use it too.</h4>
 
@@ -13,6 +14,7 @@
     </fieldset>
   <% end %>
 </div>
+<% end %>
 
 <h4>Dancers search engine</h4>
   <%= form_tag users_path, method: :get do %>
@@ -111,12 +113,12 @@
 
   <% if @users %>
     <% if @users.empty? %>
-      <p>There is not any person that match your search criteria at this time. Please try again later.</p>
+      <p><strong>There is not any person that match your search criteria at this time. Please try again later.</strong></p>
       <% unless current_user.friends_invitations_sent? %>
         <%= link_to 'Click to notify your Facebook friends that you have started to use Dancer City', fb_notifications_send_path, class: 'small button radius' %>
       <% end %>
       <% else %>
-        <p>The following persons match your search criteria:</p>
+        <p><strong>The following persons match your search criteria:</strong></p>
         <div id="users"><%= render @users %></div>
         <%= will_paginate @users %>
     <% end %>
