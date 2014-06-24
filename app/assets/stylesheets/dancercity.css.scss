@@ -1,0 +1,23 @@
+img.border-rounded {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+	padding: 3px;
+}
+
+#title_link {
+	a { color: #fff; }
+	a:hover, a:focus {
+		color: #efefef;
+	}
+}
+
+label.right {
+	padding-right: 2px;
+}
+
+label.left {
+	padding-left: 2px;
+}

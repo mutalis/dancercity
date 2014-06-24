@@ -1194,19 +1194,3 @@ $tabbar-bg: #4e69a2;
 // $include-html-visibility-classes: $include-html-classes;
 
 @import 'foundation';
-
-img.border-rounded {
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-o-border-radius: 8px;
-	-ms-border-radius: 8px;
-	border-radius: 8px;
-	padding: 3px;
-}
-
-#title_link {
-	a { color: #fff; }
-	a:hover, a:focus {
-		color: #efefef;
-	}
-}
