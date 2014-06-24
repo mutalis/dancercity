@@ -7,7 +7,13 @@ class SessionsController < ApplicationController
     if user.visibility == nil
       redirect_to user, notice: 'Please setup your profile'
     else
-      redirect_to root_url
+      if session[:stored_path]
+        stored_path = session[:stored_path]
+        session[:stored_path] = nil
+        redirect_to stored_path
+      else
+        redirect_to root_url
+      end
     end
   end
 

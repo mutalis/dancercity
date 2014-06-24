@@ -70,6 +70,7 @@ class InvitationsController < ApplicationController
     if current_user
       @invitation = Invitation.find(params[:id])
     else
+      session[:stored_path] = request.path
       redirect_to signin_path
     end
   end
