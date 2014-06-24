@@ -10,6 +10,7 @@ Dancercity::Application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
+  get 'auth/facebook', as: 'signin'
   
   match 'fb_updates', to: 'sessions#fb_notifications', via: [:get, :post]
 

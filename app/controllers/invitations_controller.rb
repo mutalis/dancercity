@@ -59,11 +59,19 @@ class InvitationsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_invitation
-    @invitation = current_user.invitations.find(params[:id]) if current_user
+    if current_user
+      @invitation = current_user.invitations.find(params[:id])
+    else
+      redirect_to signin_path
+    end
   end
   
   def show_set_invitation
-    @invitation = Invitation.find(params[:id]) if current_user
+    if current_user
+      @invitation = Invitation.find(params[:id])
+    else
+      redirect_to signin_path
+    end
   end
 
   def send_facebook_message(receiver, message)
