@@ -70,6 +70,12 @@ class UsersController < ApplicationController
 
           # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
           @users = current_user.remove_users_with_pending_invitations(@users).paginate(:page => params[:page], :per_page => 10)
+          
+          if @users.empty?
+            flash.now[:error] = "At this time there is not any dancer that match your search criteria. Please try again later."
+          else
+            flash.now[:notice] = "#{@users.count} dancers were found."
+          end
         end
       else
       end # unless
