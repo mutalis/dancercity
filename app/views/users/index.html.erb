@@ -1,19 +1,18 @@
 <% if current_user %>
 
-<h4>Your Facebook friends:</h4>
-<ul class="small-block-grid-4 medium-block-grid-12 large-block-grid-12">
-  <% @pic_urls.each do |i| %>
-    <li class="text-center"><%= image_tag(i, class: 'border-rounded') %></li>
+<div class="panel radius">
+  <h4>Let your friends know that you are using Dancer City so that they can use it too.</h4>
+
+  <p>Post in your Facebook wall through Dancer City</p>
+
+  <%= form_tag fb_notifications_wall_path, method: :get do %>
+    <fieldset>
+      <legend>Message</legend>
+      <%= text_area_tag :fb_post, @fb_post, rows: 15, cols: 10, class: 'radius' %>
+      <%= submit_tag 'Send message', name: nil, class: 'tiny button radius' %>
+    </fieldset>
   <% end %>
-</ul>
-<p>Let your friends know that you are using Dancer City so that they can use it too.</p>
-
-<p>Post in your Facebook wall through Dancer City:</p>
-
-<%= form_tag fb_notifications_wall_path, method: :get do %>
-  <%= text_area_tag :fb_post, @fb_post, rows: 15, cols: 10, class: 'radius' %>
-  <%= submit_tag 'Send post', name: nil, class: 'tiny button radius' %>
-<% end %>
+</div>
 
 <h4>Dancers search engine</h4>
   <%= form_tag users_path, method: :get do %>
