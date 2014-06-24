@@ -16,19 +16,95 @@
 
 <h4>Dancers search engine</h4>
   <%= form_tag users_path, method: :get do %>
-  <div class="row collapse">
-    <div class="small-3 columns">
-      <%= label_tag :gender, 'Find out a', class: 'right inline' %>
+    <div class="row collapse">
+      <div class="small-3 columns">
+        <%= label_tag :gender, 'Find out a', class: 'right inline' %>
+      </div>
+      <div class="small-3 columns">
+        <%= select_tag :gender, options_for_select([['woman', 'female'], ['man', 'male']],'female') %>
+      </div>
+      <div class="small-6 columns">
+        <%= label_tag :dances, 'that likes to dance:', class: 'left inline' %>
+      </div>
     </div>
-    <div class="small-3 columns">
-      <%= select_tag :gender, options_for_select([['woman', 'female'], ['man', 'male']],'female') %>
-    </div>
-    <div class="small-6 columns">
-      <%= label_tag :dances, 'that likes to dance:', class: 'left inline' %>
-    </div>
-  </div>
 
-    <%= collection_check_boxes(:user, :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s, class: 'dance_box') %>
+    <div class="row">
+      <div class="small-6 columns">
+        <input name="user[dances][]" type="hidden" value="">
+        <%= check_box_tag 'user[dances][]', 'Bachata', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Bachata' %>
+        </div>
+        <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Cha-cha-chá', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Cha-cha-chá' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Conga', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Conga' %>
+      </div>
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Cumbia', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Cumbia' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Danzón', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Danzón' %>
+      </div>
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Fox-Trot', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Fox-Trot' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Jazz', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Jazz' %>
+      </div>
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Kizomba', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Kizomba' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Merengue', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Merengue' %>
+      </div>
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Pasodoble', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Pasodoble' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Rock and roll', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Rock and roll' %>
+      </div>
+      <div class="small-6 columns">
+        <%= check_box_tag 'user[dances][]', 'Rumba', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Rumba' %>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="small-12 columns">
+        <%= check_box_tag 'user[dances][]', 'Salsa', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Salsa' %>
+        <%= check_box_tag 'user[dances][]', 'Swing', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Swing' %>
+        <%= check_box_tag 'user[dances][]', 'Tango', false, class: 'dance_checkbox', id: nil %>
+        <%= label_tag :gender, 'Tango' %>
+      </div>
+    </div>
 
     <br><%= submit_tag 'Search', name: nil, class: 'tiny button radius' %>
   <% end %>
