@@ -19,6 +19,7 @@ class UsersController < ApplicationController
         if @has_wallpost_permission
           current_user.facebook.put_connections("me", "feed", :message => @fb_post)
           flash.now[:notice] = 'Your message was successfully posted to your Facebook wall.'
+          ManagerMailer.new_sharing_done(current_user).deliver
         else
           flash.now[:error] = 'Please allow Dancer City to post a message on your Facebook wall. Please try again.'
         end

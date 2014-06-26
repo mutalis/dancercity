@@ -30,4 +30,10 @@ class ManagerMailer < ActionMailer::Base
          content_type: 'text/plain',
          body: "New DancerCity user: #{user.first_name} #{user.last_name}\n\n Gender: #{user.gender}\n\n Username: #{user.username}\n\n Location: #{user.current_location}")
   end
+
+  def new_sharing_done(user)
+    mail(to: 'rodolfo@mutalis.com', subject: 'New sharing was done',
+         content_type: 'text/plain',
+         body: "New sharing was done by user: #{user.first_name} #{user.last_name}\n\n Gender: #{user.gender}\n\n Username: #{user.username}\n\n Location: #{user.current_location}")
+  end
 end
