@@ -105,8 +105,12 @@ class UsersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = current_user
-    redirect_to root_path unless @user
+    if current_user
+      @user = current_user
+    else
+      session[:stored_path] = request.path
+      redirect_to signin_path
+    end
   end
 
   # Only allow a trusted parameter "white list" through.

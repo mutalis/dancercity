@@ -4,13 +4,13 @@
 <div class="panel radius">
   <h4>Let your friends know that you are using Dancer City so that they can use it too.</h4>
 
-  <p>Post in your Facebook wall through Dancer City</p>
+  <p>Post the following message in your Facebook wall through Dancer City</p>
 
   <%= form_tag fb_notifications_wall_path, method: :get do %>
     <fieldset>
       <legend>Message</legend>
       <%= text_area_tag :fb_post, @fb_post, rows: 15, cols: 10, class: 'radius' %>
-      <%= submit_tag 'Send message', name: nil, class: 'tiny button radius' %>
+      <%= submit_tag 'Post in my Facebook wall', name: nil, class: 'tiny button radius' %>
     </fieldset>
   <% end %>
 </div>
