@@ -6,7 +6,8 @@ Dancercity::Application.routes.draw do
   get 'about' => 'pages#about'
   get 'privacy' => 'pages#privacy'
   get 'terms' => 'pages#terms'
-  get 'contact' => 'pages#contact'
+
+  get 'contact' => 'contact_message#new'
   post 'contact' => 'contact_message#create', as: 'contact_messages'
 
   get 'auth/:provider/callback', to: 'sessions#create'

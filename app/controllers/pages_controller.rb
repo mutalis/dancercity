@@ -7,8 +7,4 @@ class PagesController < ApplicationController
 
   def terms
   end
-
-  def contact
-    @contact = ContactMessage.new
-  end
 end

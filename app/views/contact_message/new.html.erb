@@ -1,0 +1,32 @@
+<div class="panel radius">
+
+  <h4>Contact Us</h4>
+
+  <p>If you'd like to talk to us, please feel free to send us a message using this contact form. We speak english and spanish.</p>
+
+  <p>You can also contact us through our Facebook page at: </p>
+
+  <p><%= link_to 'https://www.facebook.com/dancercity', 'https://www.facebook.com/dancercity', target: '_blank' %></p>
+
+  <p>We'd love to hear how we can make Dancer City even better for you.</p>
+
+
+  <%= form_for @contact do |f| %>
+
+    <fieldset>
+      <legend><%= f.label :message %></legend>
+      <% if @contact.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% @contact.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    
+      <%= f.text_area :message, rows: 7, class: 'radius' %>
+      <%= f.submit 'Send message', class: 'tiny button radius' %>
+    </fieldset>
+  <% end %>
+</div>
