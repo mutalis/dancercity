@@ -1,3 +1,4 @@
+<div class="panel radius">
 <div id="invitation">
   <h4>Invitation for <%= @invitation.user.first_name %> <%= @invitation.user.last_name %></h4>
 
@@ -27,5 +28,5 @@
   <%= render partial: 'the_comments/tree', locals: { commentable: @invitation, comments_tree: @comments } %>
   <br>
 </div>
-
+</div>
 <p><%= link_to "Go to Home Page", root_path, class: 'tiny button radius' %></p>
