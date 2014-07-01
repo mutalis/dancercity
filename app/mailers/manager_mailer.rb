@@ -42,4 +42,10 @@ class ManagerMailer < ActionMailer::Base
          content_type: 'text/plain',
          body: "New message from: #{user.first_name} #{user.last_name}\n\n Gender: #{user.gender}\n\n Username: #{user.username}\n\n Location: #{user.current_location}\n\n Message: #{message}")
   end
+
+  def welcome_message(email, subject, message)
+    mail(to: email, subject: subject,
+         content_type: 'text/plain',
+         body: message)
+  end
 end

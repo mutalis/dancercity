@@ -98,11 +98,18 @@
     </div>
   
     <div class="row">
-      <div class="small-12 columns">
+      <div class="small-6 columns">
         <%= check_box_tag 'user[dances][]', 'Salsa', false, class: 'dance_checkbox', id: nil %>
         <%= label_tag :gender, 'Salsa' %>
+      </div>
+      <div class="small-6 columns">
         <%= check_box_tag 'user[dances][]', 'Swing', false, class: 'dance_checkbox', id: nil %>
         <%= label_tag :gender, 'Swing' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
         <%= check_box_tag 'user[dances][]', 'Tango', false, class: 'dance_checkbox', id: nil %>
         <%= label_tag :gender, 'Tango' %>
       </div>

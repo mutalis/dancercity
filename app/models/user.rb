@@ -1,8 +1,10 @@
+# encoding: UTF-8
+
 class User < ActiveRecord::Base
   include TheComments::User
   extend FriendlyId
 
-  after_create :notify_admin_by_email
+  after_create :notify_admin_by_email, :send_welcome_message
 
   has_many :invitations
   has_many :partners, through: :invitations
@@ -152,6 +154,47 @@ class User < ActiveRecord::Base
   # Send email with the settings of the user.
   def notify_admin_by_email
     ManagerMailer.new_signin_notification(self).deliver
+  end
+  
+  # Send email with the settings of the user.
+  def send_welcome_message
+    fb_locale = self.facebook.fql_query("SELECT locale FROM user WHERE uid = me()")
+    fb_locale = fb_locale[0]["locale"]
+
+    if (fb_locale =~ Regexp.new('\Aes_')) == 0
+      subject = "#{self.first_name} ¡ Bienvenido a Dancer City !"
+
+      message = "Hola #{self.first_name}\n\n
+¡ Gracias por unirte a la comunidad de Dancer City !\n\n
+Tu cuenta ha sido creada. A partir de ahora te será más fácil contactar a personas que les gusta bailar.\n\n
+Puedes acceder a tu página de perfil en:\n\n
+http://www.dancercity.net/#{self.username}\n\n
+Por favor síguenos en nuestra página en Facebook para estar al día de lo que sucede en la comunidad Dancer City.\n\n
+https://www.facebook.com/dancercity\n\n
+Si tienes alguna duda o comentario sobre Dancer City, contáctanos a través de nuestra página en Facebook, o en nuestra página de contacto en Dancer City:\n\n
+http://www.dancercity.net/contact\n\n
+Estamos trabajando en nuevas funcionalidades para Dancer City. Te agradecemos nos envíes tus comentarios sobre como mejorar Dancer City, y las funcionalidades que te gustaría que se agregaran.\n\n
+Gracias,\n
+El equipo de Dancer City\n
+http://www.dancercity.net\n"
+    else
+      subject = "#{self.first_name}, Welcome to Dancer City !"
+
+      message = "Hello #{self.first_name}\n\n
+Thanks for joining Dancer City !\n\n
+Your account has been created. From now on it will be easier meet people that enjoy dancing.\n\n
+You can access your profile page at:\n\n
+http://www.dancercity.net/#{self.username}\n\n
+Please follow us at our Facebook page to know what's up in the Dancer City community.\n\n
+https://www.facebook.com/dancercity\n\n
+If you'd like to talk to us, please feel free to contact us through our Facebook page or using our contact form at:\n\n
+http://www.dancercity.net/contact\n\n
+We're working on new features for Dancer City. We'd love to hear how we can make Dancer City even better for you.\n\n
+Thank you,\n
+The Dancer City Team\n
+http://www.dancercity.net\n"
+    end
+    ManagerMailer.welcome_message(self.email, subject, message).deliver
   end
 
   # def send_facebook_message
