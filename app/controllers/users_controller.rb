@@ -70,12 +70,17 @@ class UsersController < ApplicationController
           @users = User.no_user(current_user.username).want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
 
           # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
-          @users = current_user.remove_users_with_pending_invitations(@users).paginate(:page => params[:page], :per_page => 10)
+          @users = current_user.remove_users_with_pending_invitations(@users)
+          
+          total_num_results_found = @users.count
+          
+          # paginate the results
+          @users = @users.paginate(:page => params[:page], :per_page => 10)
           
           if @users.empty?
             flash.now[:error] = "At this time there is not any dancer that match your search criteria. Please try again later."
           else
-            flash.now[:notice] = "#{@users.count} dancers were found."
+            flash.now[:notice] = "#{total_num_results_found} dancers were found."
           end
         end
       else
