@@ -87,7 +87,7 @@ class UsersController < ApplicationController
       end # unless
     else # no logged
       # gets a set of user profile images when no logged.
-      @pic_urls = User.want_dance.limit(32).map {|i| i['image']}
+      @pic_urls = User.want_dance.limit(32).reorder(created_at: :desc).map {|i| i['image']}
     end
   end
 
