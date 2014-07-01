@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
     if user.visibility == nil
-      redirect_to user, notice: 'Please setup your profile'
+      redirect_to user, notice: "Thanks for joining Dancer City ! We sent a welcome email. Please setup your profile, use an valid email address because all the Dancer City messages are sent by email."
     else
       if session[:stored_path]
         stored_path = session[:stored_path]
