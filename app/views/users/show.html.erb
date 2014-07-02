@@ -20,27 +20,29 @@
 
 <p>Sex: <%= @user.gender %></p>
 
-<p>Choose what do you like to dance ?</p>
+<p>Choose what do you like to dance?</p>
 
 <%= form_for(@user) do |f| %>
-  <%= f.collection_check_boxes :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s %>
+
+  <%= f.collection_check_boxes :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s do |c| %>
+    <%= c.check_box %> <%= c.label %><br>
+  <% end %>
 
   <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
 
   <%= f.label :email %>
   <%= f.text_field :email %>
+
   <%= f.label :current_location %>
+
   <div class="row">
     <div class="small-7 columns">
-
-  <%= f.text_field :current_location, placeholder: 'Enter your current location', id: 'profile_current_location', size: '40' %>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <%= f.text_field :current_location, placeholder: 'Enter your current location', id: 'profile_current_location', size: '40' %>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
     <div class="small-5 columns">
       <div id="profile_user_coords"></div>
-      <div class="actions">
-        <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
-      </div>
+      <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
     </div>
   </div>
 <% end %>
