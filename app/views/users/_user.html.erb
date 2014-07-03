@@ -11,9 +11,7 @@
   </div>
   <br>
   <p>likes to dance:<br>
-  <% user.dances.each do |dance| %>
-    <%= dance %>
-  <% end %>
+    <%= user.dances.join(", ") %>
   </p>
 
   <% if user.current_location %>
