@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :current_location, message: 'Please enter your current location.'
 
+  validates_presence_of :gender, :visibility
+
   friendly_id :username, use: [:slugged, :history]
 
   def admin?

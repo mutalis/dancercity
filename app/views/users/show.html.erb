@@ -18,12 +18,12 @@
   <% end %>
 <% end %>
 
-<p>Sex: <%= @user.gender %></p>
-
-<p>Choose what do you like to dance?</p>
-
 <%= form_for(@user) do |f| %>
 
+  <%= f.label :gender %>
+  <%= f.select :gender, ['female','male'] %>
+
+  <p>Choose what do you like to dance?</p>
   <%= f.collection_check_boxes :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s do |c| %>
     <%= c.check_box %> <%= c.label %><br>
   <% end %>
