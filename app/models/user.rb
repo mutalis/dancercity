@@ -186,7 +186,7 @@ http://www.dancercity.net\n"
 Thanks for joining Dancer City !\n\n
 Your account has been created. From now on it will be easier meet people that enjoy dancing.\n\n
 You can access your profile page at:\n\n
-http://www.dancercity.net/#{self.username}\n\n
+http://www.dancercity.net/#{self.slug}\n\n
 Please follow us at our Facebook page to know what's up in the Dancer City community.\n\n
 https://www.facebook.com/dancercity\n\n
 If you'd like to talk to us, please feel free to contact us through our Facebook page or using our contact form at:\n\n
