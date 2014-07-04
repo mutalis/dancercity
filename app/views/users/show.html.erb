@@ -1,49 +1,77 @@
-<div class="panel radius">
-<h4><%= @user.first_name %> <%= @user.last_name %> profile</h4>
+<% if current_user == @user %>
+  <div class="panel radius">
+    <h4><%= @user.first_name %> <%= @user.last_name %> profile</h4>
 
-<p><%= image_tag @user.image, class: 'border-rounded' %></p>
+    <p><%= image_tag @user.image, class: 'border-rounded' %></p>
 
-<% if @user.errors.any? %>
-  <%= content_tag :div, class: 'alert-box alert radius', data: {alert: ''} do %>
-    <ul>
-    <% @user.errors.messages.each do |key, msg| %>
-      <% if (key == :dances) || (key == :current_location) %>
-        <li><%= msg[0] %></li>
-      <% else %>
-        <li><%= key %> <%= msg[0] %></li>
+    <% if @user.errors.any? %>
+      <%= content_tag :div, class: 'alert-box alert radius', data: {alert: ''} do %>
+        <ul>
+        <% @user.errors.messages.each do |key, msg| %>
+          <% if (key == :dances) || (key == :current_location) %>
+            <li><%= msg[0] %></li>
+          <% else %>
+            <li><%= key %> <%= msg[0] %></li>
+          <% end %>
+        <% end %>
+        </ul>
+        <a href="#" class="close">&times;</a>
       <% end %>
     <% end %>
-    </ul>
-    <a href="#" class="close">&times;</a>
-  <% end %>
-<% end %>
 
-<%= form_for(@user) do |f| %>
+    <%= form_for(@user) do |f| %>
 
-  <%= f.label :gender %>
-  <%= f.select :gender, ['female','male'] %>
+      <%= f.label :gender %>
+      <%= f.select :gender, ['female','male'] %>
 
-  <p>Choose what do you like to dance?</p>
-  <%= f.collection_check_boxes :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s do |c| %>
-    <%= c.check_box %> <%= c.label %><br>
-  <% end %>
+      <p>Choose what do you like to dance?</p>
+      <%= f.collection_check_boxes :dances, ['Bachata','Cha-cha-chá','Conga','Cumbia','Danzón','Fox-Trot','Jazz','Kizomba','Merengue','Pasodoble','Rock and roll','Rumba','Salsa','Swing','Tango'], :to_s, :to_s do |c| %>
+        <%= c.check_box %> <%= c.label %><br>
+      <% end %>
 
-  <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
+      <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
 
-  <%= f.label :email %>
-  <%= f.text_field :email %>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
 
-  <%= f.label :current_location %>
+      <%= f.label :current_location %>
 
-  <div class="row">
-    <div class="small-7 columns">
-      <%= f.text_field :current_location, placeholder: 'Enter your current location', id: 'profile_current_location', size: '40' %>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
-    <div class="small-5 columns">
-      <div id="profile_user_coords"></div>
-      <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
-    </div>
+      <div class="row">
+        <div class="small-7 columns">
+          <%= f.text_field :current_location, placeholder: 'Enter your current location', id: 'profile_current_location', size: '40' %>
+          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div>
+        <div class="small-5 columns">
+          <div id="profile_user_coords"></div>
+          <%= f.submit 'Update profile', name: nil, class: 'tiny button radius' %>
+        </div>
+      </div>
+    <% end %>
   </div>
+<% else %>
+  <%= content_tag :div, id: "user_#{@user.id}" do %>
+    <div class="panel radius">
+      <div class="row">
+        <div class="small-6 columns">
+          <%= image_tag @user.image, class: 'border-rounded' %>
+          <strong><%= link_to "#{@user.first_name} #{@user.last_name}", "https://www.facebook.com/profile.php?id=#{@user.uid}", target: '_blank' %></strong>
+        </div>
+        <div class="small-6 columns">
+        </div>
+      </div>
+      <br>
+      <p>likes to dance:<br>
+        <%= @user.dances.join(", ") %>
+      </p>
+
+      <% if @user.current_location %>
+        <p>Location: <%= @user.current_location %></p>
+      <% end %>
+      <p>You can contact to <%= "#{@user.first_name} #{@user.last_name}" %> sending an invitation message.</p>
+      <%= form_for([@user, Invitation.new], remote: true) do |f| %>
+        <%= f.text_area :message, rows: 3, placeholder: 'Message', class: 'radius' %>
+        <%= f.submit 'Send message', name: nil, class: 'tiny button radius' %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
-</div>

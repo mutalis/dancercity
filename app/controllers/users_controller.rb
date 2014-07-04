@@ -111,7 +111,7 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     if current_user
-      @user = current_user
+      @user = User.friendly.find(params[:id])
     else
       session[:stored_path] = request.path
       redirect_to signin_path
