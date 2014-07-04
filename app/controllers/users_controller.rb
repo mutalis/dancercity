@@ -93,6 +93,7 @@ class UsersController < ApplicationController
 
   # GET /:id
   def show
+    @show_contact_form = true unless current_user.has_pending_invitations?(@user)
   end
   
   # PATCH/PUT /:id

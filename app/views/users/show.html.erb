@@ -67,11 +67,14 @@
       <% if @user.current_location %>
         <p>Location: <%= @user.current_location %></p>
       <% end %>
-      <p>You can contact to <%= "#{@user.first_name} #{@user.last_name}" %> sending an invitation message.</p>
-      <%= form_for([@user, Invitation.new], remote: true) do |f| %>
-        <%= f.text_area :message, rows: 3, placeholder: 'Message', class: 'radius' %>
-        <%= f.submit 'Send message', name: nil, class: 'tiny button radius' %>
+      <% # When displaying a profile user page only shows the contact form if the current user don't have a pending invitation with the user of the profile page. %>
+      <% if @show_contact_form %>
+        <p>You can contact to <%= "#{@user.first_name} #{@user.last_name}" %> sending an invitation message.</p>
+        <%= form_for([@user, Invitation.new], remote: true) do |f| %>
+          <%= f.text_area :message, rows: 3, placeholder: 'Message', class: 'radius' %>
+          <%= f.submit 'Send message', name: nil, class: 'tiny button radius' %>
+        <% end %>
       <% end %>
-    </div>
+    </div> <!-- panel -->
   <% end %>
 <% end %>
