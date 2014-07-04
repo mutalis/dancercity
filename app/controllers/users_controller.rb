@@ -6,6 +6,12 @@ class UsersController < ApplicationController
   before_action :check_user_settings, except: [:show, :update]
   before_action :set_user, only: [:show, :update]
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    message = "User profile #{params[:id]} not found. You may have mistyped the address."
+    logger.error message
+    redirect_to '/404.html'
+  end
+
   # GET /
   def index
     if current_user
