@@ -99,9 +99,13 @@ class UsersController < ApplicationController
 
   # GET /:id
   def show
-    @show_contact_form = true unless current_user.has_pending_invitations?(@user)
+    if (current_user.has_pending_invitations?(@user) || (@user.visibility == 'close'))
+      @show_contact_form = false
+    else
+      @show_contact_form = true
+    end
   end
-  
+
   # PATCH/PUT /:id
   def update
     # remove empty items from the dances array
