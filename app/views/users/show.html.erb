@@ -2,7 +2,7 @@
   <div class="panel radius">
     <h4><%= @user.first_name %> <%= @user.last_name %> profile</h4>
 
-    <p><%= image_tag @user.image, class: 'border-rounded' %></p>
+    <h4><%= image_tag @user.image, class: 'border-rounded' %> <%= @user.likers(User).count %> likes</h4>
 
     <% if @user.errors.any? %>
       <%= content_tag :div, class: 'alert-box alert radius', data: {alert: ''} do %>
@@ -57,6 +57,7 @@
           <strong><%= link_to "#{@user.first_name} #{@user.last_name}", "https://www.facebook.com/profile.php?id=#{@user.uid}", target: '_blank' %></strong>
         </div>
         <div class="small-6 columns">
+          <%= render partial: 'shared/likes', locals: { user: @user } %>
         </div>
       </div>
       <br>

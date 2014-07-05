@@ -1,0 +1,7 @@
+<%= content_tag :div, id: "like_#{user.id}" do %>
+  <h4><%= user.likers(User).count %> likes</h4>
+
+  <% unless current_user.likes?(user) %>
+    <%= link_to 'Like', likes_path(user), remote: true, class: 'tiny button radius' %>
+  <% end %>
+<% end %>

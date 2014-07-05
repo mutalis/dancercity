@@ -97,6 +97,39 @@ ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
+-- Name: follows; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE follows (
+    id integer NOT NULL,
+    follower_type character varying(255),
+    follower_id integer,
+    followable_type character varying(255),
+    followable_id integer,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: follows_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE follows_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: follows_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE follows_id_seq OWNED BY follows.id;
+
+
+--
 -- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -167,6 +200,72 @@ CREATE SEQUENCE invitations_id_seq
 --
 
 ALTER SEQUENCE invitations_id_seq OWNED BY invitations.id;
+
+
+--
+-- Name: likes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE likes (
+    id integer NOT NULL,
+    liker_type character varying(255),
+    liker_id integer,
+    likeable_type character varying(255),
+    likeable_id integer,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE likes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE likes_id_seq OWNED BY likes.id;
+
+
+--
+-- Name: mentions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE mentions (
+    id integer NOT NULL,
+    mentioner_type character varying(255),
+    mentioner_id integer,
+    mentionable_type character varying(255),
+    mentionable_id integer,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: mentions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE mentions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mentions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE mentions_id_seq OWNED BY mentions.id;
 
 
 --
@@ -243,6 +342,13 @@ ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY follows ALTER COLUMN id SET DEFAULT nextval('follows_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly_id_slugs_id_seq'::regclass);
 
 
@@ -251,6 +357,20 @@ ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly
 --
 
 ALTER TABLE ONLY invitations ALTER COLUMN id SET DEFAULT nextval('invitations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY likes ALTER COLUMN id SET DEFAULT nextval('likes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY mentions ALTER COLUMN id SET DEFAULT nextval('mentions_id_seq'::regclass);
 
 
 --
@@ -266,6 +386,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: follows_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY follows
+    ADD CONSTRAINT follows_pkey PRIMARY KEY (id);
 
 
 --
@@ -285,11 +413,69 @@ ALTER TABLE ONLY invitations
 
 
 --
+-- Name: likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY likes
+    ADD CONSTRAINT likes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mentions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY mentions
+    ADD CONSTRAINT mentions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fk_followables; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk_followables ON follows USING btree (followable_id, followable_type);
+
+
+--
+-- Name: fk_follows; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk_follows ON follows USING btree (follower_id, follower_type);
+
+
+--
+-- Name: fk_likeables; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk_likeables ON likes USING btree (likeable_id, likeable_type);
+
+
+--
+-- Name: fk_likes; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk_likes ON likes USING btree (liker_id, liker_type);
+
+
+--
+-- Name: fk_mentionables; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk_mentionables ON mentions USING btree (mentionable_id, mentionable_type);
+
+
+--
+-- Name: fk_mentions; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fk_mentions ON mentions USING btree (mentioner_id, mentioner_type);
 
 
 --
@@ -404,3 +590,9 @@ INSERT INTO schema_migrations (version) VALUES ('20140617220957');
 INSERT INTO schema_migrations (version) VALUES ('20140617220958');
 
 INSERT INTO schema_migrations (version) VALUES ('20140617220959');
+
+INSERT INTO schema_migrations (version) VALUES ('20140704200645');
+
+INSERT INTO schema_migrations (version) VALUES ('20140704200646');
+
+INSERT INTO schema_migrations (version) VALUES ('20140704200647');

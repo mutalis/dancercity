@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
 
   friendly_id :username, use: [:slugged, :history]
 
+  acts_as_liker
+  acts_as_likeable
+
   def admin?
     false
     # self == User.find_by username: 'tangohoy1'

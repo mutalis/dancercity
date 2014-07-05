@@ -75,3 +75,5 @@ gem 'awesome_nested_set', '2.1.6'
 gem 'haml', '4.0.5'
 
 gem 'newrelic_rpm'
+
+gem 'socialization', '1.1.0'

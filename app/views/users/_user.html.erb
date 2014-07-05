@@ -7,6 +7,7 @@
         <strong><%= link_to "#{user.first_name} #{user.last_name}", "https://www.facebook.com/profile.php?id=#{user.uid}", target: '_blank' %></strong>
       </div>
       <div class="small-6 columns">
+        <%= render partial: 'shared/likes', locals: { user: user } %>
       </div>
     </div>
     <br>

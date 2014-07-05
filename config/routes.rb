@@ -17,6 +17,8 @@ Dancercity::Application.routes.draw do
   
   match 'fb_updates', to: 'sessions#fb_notifications', via: [:get, :post]
 
+  get 'likes/:id', to: 'likes#create', as: 'likes'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
