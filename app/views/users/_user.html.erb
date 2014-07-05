@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="small-6 columns">
-        <%= image_tag user.image, class: 'border-rounded' %>
+        <%= image_tag user.image, class: 'border-rounded' %><br>
         <strong><%= link_to "#{user.first_name} #{user.last_name}", "https://www.facebook.com/profile.php?id=#{user.uid}", target: '_blank' %></strong>
       </div>
       <div class="small-6 columns">
@@ -19,10 +19,14 @@
       <p>Location: <%= user.current_location %></p>
     <% end %>
 
-    <%= form_for([user, Invitation.new], remote: true) do |f| %>
-      <%= f.text_area :message, rows: 3, placeholder: 'Message', class: 'radius' %>
-      <%= f.submit 'Send message', name: nil, class: 'tiny button radius' %>
+    <% if ((user.visibility == 'close') || (has_pending_invitations)) %>
+      <p>This member is not receiving invitation messages at this time.</p>
+    <% else %>
+      <p>Get in contact with <%= user.first_name %> sending an invitation message</p>
+      <%= form_for([user, Invitation.new], remote: true) do |f| %>
+        <%= f.text_area :message, rows: 3, placeholder: 'Message', class: 'radius' %>
+        <%= f.submit 'Send message', name: nil, class: 'tiny button radius' %>
+      <% end %>
     <% end %>
-
-  </div>
+  </div> <!-- panel -->
 <% end %>

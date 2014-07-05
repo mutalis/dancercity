@@ -124,10 +124,12 @@
       <% unless current_user.friends_invitations_sent? %>
         <%= link_to 'Click to notify your Facebook friends that you have started to use Dancer City', fb_notifications_send_path, class: 'small button radius' %>
       <% end %>
-      <% else %>
-        <p><strong>The following persons match your search criteria:</strong></p>
-        <div id="users"><%= render @users %></div>
-        <%= will_paginate @users %>
+    <% else %>
+      <p><strong>The following persons match your search criteria:</strong></p>
+      <div id="users">
+        <%= render partial: 'user', collection: @users, locals: { has_pending_invitations: false } %>
+      </div>
+      <%= will_paginate @users %>
     <% end %>
   <% end %>
 

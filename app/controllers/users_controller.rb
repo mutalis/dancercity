@@ -73,7 +73,7 @@ class UsersController < ApplicationController
           # @users = User.match_gender().any_types_of_dance().close_to()
           # @users = User.want_dance.match_gender().any_types_of_dance().close_to()
     
-          @users = User.no_user(current_user.username).want_dance.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
+          @users = User.no_user(current_user.username).match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
 
           # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
           @users = current_user.remove_users_with_pending_invitations(@users)
@@ -99,11 +99,6 @@ class UsersController < ApplicationController
 
   # GET /:id
   def show
-    if (current_user.has_pending_invitations?(@user) || (@user.visibility == 'close'))
-      @show_contact_form = false
-    else
-      @show_contact_form = true
-    end
   end
 
   # PATCH/PUT /:id

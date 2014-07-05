@@ -49,33 +49,5 @@
     <% end %>
   </div>
 <% else %>
-  <%= content_tag :div, id: "user_#{@user.id}" do %>
-    <div class="panel radius">
-      <div class="row">
-        <div class="small-6 columns">
-          <%= image_tag @user.image, class: 'border-rounded' %>
-          <strong><%= link_to "#{@user.first_name} #{@user.last_name}", "https://www.facebook.com/profile.php?id=#{@user.uid}", target: '_blank' %></strong>
-        </div>
-        <div class="small-6 columns">
-          <%= render partial: 'shared/likes', locals: { user: @user } %>
-        </div>
-      </div>
-      <br>
-      <p>likes to dance:<br>
-        <%= @user.dances.join(", ") %>
-      </p>
-
-      <% if @user.current_location %>
-        <p>Location: <%= @user.current_location %></p>
-      <% end %>
-      <% # When displaying a profile user page only shows the contact form if the current user don't have a pending invitation with the user of the profile page. %>
-      <% if @show_contact_form %>
-        <p>Get in contact with <%= "#{@user.first_name} #{@user.last_name}" %> sending an invitation message.</p>
-        <%= form_for([@user, Invitation.new], remote: true) do |f| %>
-          <%= f.text_area :message, rows: 3, placeholder: 'Message', class: 'radius' %>
-          <%= f.submit 'Send message', name: nil, class: 'tiny button radius' %>
-        <% end %>
-      <% end %>
-    </div> <!-- panel -->
-  <% end %>
+  <%= render partial: 'user', object: @user, locals: { has_pending_invitations: current_user.has_pending_invitations?(@user) } %>
 <% end %>
