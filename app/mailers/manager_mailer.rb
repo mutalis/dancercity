@@ -48,4 +48,10 @@ class ManagerMailer < ActionMailer::Base
          content_type: 'text/plain',
          body: message)
   end
+
+  def got_a_like(email, subject, message)
+    mail(to: email, subject: subject,
+         content_type: 'text/plain',
+         body: message)
+  end
 end
