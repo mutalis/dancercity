@@ -1,4 +1,4 @@
-$('#users').append('<%= j render(@users) %>');
+$('#users').append('<%= j render partial: 'user', collection: @users, locals: { has_pending_invitations: false } %>');
 <% if @users.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate(@users) %>');
 <% else %>
