@@ -20,7 +20,7 @@
     <% end %>
 
     <% if ((user.visibility == 'close') || (has_pending_invitations)) %>
-      <p>This member is not receiving invitation messages at this time.</p>
+      <p><%= user.first_name %> is not receiving invitation messages at this time.</p>
     <% else %>
       <p>Get in contact with <%= user.first_name %> sending an invitation message</p>
       <%= form_for([user, Invitation.new], remote: true) do |f| %>
