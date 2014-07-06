@@ -29,6 +29,10 @@
         <%= c.check_box %> <%= c.label %><br>
       <% end %>
 
+      <br><p>Write about yourself. This message is displayed when someone looks at your profile and search results.</p>
+
+      <%= f.text_area :bio, rows: 5, placeholder: 'For example: What kind of dancers are you interested in? What are you looking for in a dancer? What are your strengths as a dancer?', class: 'radius' %>
+
       <%= f.select :visibility, [['Receive invitations from everybody', 'open'], ['Only receive invitations from my Facebook friends', 'fb'], ['I don\'t want to receive invitations', 'close']] %>
 
       <%= f.label :email %>

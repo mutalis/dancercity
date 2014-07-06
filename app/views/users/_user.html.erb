@@ -19,6 +19,10 @@
       <p>Location: <%= user.current_location %></p>
     <% end %>
 
+    <% if user.bio.present? %>
+      <p>About:<br><%= user.bio %></p>
+    <% end %>
+
     <% if ((user.visibility == 'close') || (has_pending_invitations)) %>
       <p><%= user.first_name %> is not receiving invitation messages at this time.</p>
     <% else %>
