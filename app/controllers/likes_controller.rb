@@ -1,7 +1,7 @@
 class LikesController < ApplicationController
   before_action :set_user
 
-  respond_to :js
+  # respond_to :js
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     message = "User #{params[:id]} not found. Failed Like request from #{current_user.slug}."

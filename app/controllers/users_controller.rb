@@ -4,7 +4,7 @@ require 'will_paginate/array'
 
 class UsersController < ApplicationController
   before_action :check_user_settings, except: [:show, :update]
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: [:update]
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     message = "User profile #{params[:id]} not found. You may have mistyped the address."
@@ -52,6 +52,7 @@ class UsersController < ApplicationController
           - All this services are Free !\n"
         end
       end
+    end # logged
 
       # gets the users that match the search criteria
       unless params[:user].blank? && params[:gender].blank?
@@ -72,12 +73,15 @@ class UsersController < ApplicationController
     
           # @users = User.match_gender().any_types_of_dance().close_to()
           # @users = User.want_dance.match_gender().any_types_of_dance().close_to()
-    
-          @users = User.no_user(current_user.username).match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
+          if current_user
+            @users = User.no_user(current_user.username).match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
 
-          # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
-          @users = current_user.remove_users_with_pending_invitations(@users)
-          
+            # The user can send an invitation only if him don't have a previous invitation with pending status for the same recipient.
+            @users = current_user.remove_users_with_pending_invitations(@users)
+          else
+            @users = User.match_gender(params[:gender]).any_types_of_dance(params[:user][:dances])
+          end        
+
           total_num_results_found = @users.count
           
           # paginate the results
@@ -89,16 +93,12 @@ class UsersController < ApplicationController
             flash.now[:notice] = "#{total_num_results_found} dancers were found."
           end
         end
-      else
       end # unless
-    else # no logged
-      # gets a set of user profile images when no logged.
-      @pic_urls = User.want_dance.limit(32).reorder(created_at: :desc).map {|i| i['image']}
-    end
   end
 
   # GET /:id
   def show
+    @user = User.friendly.find(params[:id])
   end
 
   # PATCH/PUT /:id

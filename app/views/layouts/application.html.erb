@@ -45,7 +45,10 @@
             <div class="small-12 small-centered columns">
 
               <% if current_user %>
-                <h6 class="right">Signed in as <strong><%= current_user.first_name %></strong></h6>
+                <h6 class="right">Signed in as <strong><%= current_user.first_name %></strong>
+                <br><%= link_to 'Sign out', signout_path, id: "sign_in", class: 'tiny button radius right' %></h6>
+              <% else %>
+                <h6><%= link_to 'Sign in with Facebook', signin_path, id: "sign_in", class: 'tiny button radius right' %></h6>
               <% end %>
               <div class="clearfix"></div>
               <div id="notices">

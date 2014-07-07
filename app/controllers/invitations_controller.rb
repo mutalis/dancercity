@@ -1,7 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :check_user_settings
   before_action :set_invitation, only: [:update]
-  before_action :show_set_invitation, only: [:show]
 
   # respond_to :js
 
@@ -14,6 +13,12 @@ class InvitationsController < ApplicationController
   end
 
   def show
+    if current_user
+      @invitation = Invitation.find(params[:id])
+    else
+      send_to_signin
+    end
+
     @is_inviter = (@invitation.partner.slug == params[:user_id])
     @is_invitee = (@invitation.user.slug == params[:user_id])
 
@@ -31,7 +36,8 @@ class InvitationsController < ApplicationController
   
   def create
     invited_user = User.friendly.find(params[:user_id])
-    
+    send_to_signin unless current_user
+
     if current_user && invited_user
       @invitation = current_user.sent_invitations.create!(user_id: invited_user.id, date: Time.now, message: params[:invitation][:message])
       # @invitation = current_user.sent_invitations.create!(invitation_params)
@@ -66,13 +72,9 @@ class InvitationsController < ApplicationController
     end
   end
   
-  def show_set_invitation
-    if current_user
-      @invitation = Invitation.find(params[:id])
-    else
-      session[:stored_path] = request.path
-      redirect_to signin_path
-    end
+  def send_to_signin
+    session[:stored_path] = request.path
+    redirect_to signin_path
   end
 
   def send_facebook_message(receiver, message)

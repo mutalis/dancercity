@@ -53,5 +53,10 @@
     <% end %>
   </div>
 <% else %>
-  <%= render partial: 'user', object: @user, locals: { has_pending_invitations: current_user.has_pending_invitations?(@user) } %>
+  <% if current_user %>
+    <% pending_invitations = current_user.has_pending_invitations?(@user) %>
+  <% else %>
+    <% pending_invitations = false %>
+  <% end %>
+  <%= render partial: 'user', object: @user, locals: { has_pending_invitations: pending_invitations } %>
 <% end %>
