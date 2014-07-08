@@ -1,20 +1,19 @@
 <% if current_user %>
+  <% if params[:user].blank? && params[:gender].blank? %>
+    <div class="panel radius">
+      <h4>Let your friends know that you are using Dancer City so that they can use it too.</h4>
 
-<% if params[:user].blank? && params[:gender].blank? %>
-<div class="panel radius">
-  <h4>Let your friends know that you are using Dancer City so that they can use it too.</h4>
+      <p>We invite to post the following message in your Facebook wall through Dancer City</p>
 
-  <p>We invite to post the following message in your Facebook wall through Dancer City</p>
-
-  <%= form_tag fb_notifications_wall_path, method: :get do %>
-    <fieldset>
-      <legend>Message</legend>
-      <%= text_area_tag :fb_post, @fb_post, rows: 15, cols: 10, class: 'radius' %>
-      <%= submit_tag 'Post in my Facebook wall', name: nil, class: 'tiny button radius' %>
-    </fieldset>
+      <%= form_tag fb_notifications_wall_path, method: :get do %>
+        <fieldset>
+          <legend>Message</legend>
+          <%= text_area_tag :fb_post, @fb_post, rows: 15, cols: 10, class: 'radius' %>
+          <%= submit_tag 'Post in my Facebook wall', name: nil, class: 'tiny button radius' %>
+        </fieldset>
+      <% end %>
+    </div>
   <% end %>
-</div>
-<% end %>
 <% end %>
 
 <h4>Dancers search engine</h4>
@@ -121,7 +120,7 @@
 
   <% if @users %>
     <% if @users.empty? %>
-      <p><strong>There is not any person that match your search criteria at this time. Please try again later.</strong></p>
+      <%= render 'shared/about_dc' %>
     <% else %>
       <p><strong>The following persons match your search criteria:</strong></p>
       <div id="users">
@@ -129,4 +128,6 @@
       </div>
       <%= will_paginate @users %>
     <% end %>
+  <% else %>
+    <%= render 'shared/about_dc' %>
   <% end %>
