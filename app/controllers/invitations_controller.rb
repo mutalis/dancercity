@@ -15,22 +15,21 @@ class InvitationsController < ApplicationController
   def show
     if current_user
       @invitation = Invitation.find(params[:id])
-    else
-      send_to_signin
-    end
+      @is_inviter = (@invitation.partner.slug == params[:user_id])
+      @is_invitee = (@invitation.user.slug == params[:user_id])
 
-    @is_inviter = (@invitation.partner.slug == params[:user_id])
-    @is_invitee = (@invitation.user.slug == params[:user_id])
-
-    # Checks that the slug Url match with current user slug
-    if (current_user.slug == params[:user_id])
-      if @is_inviter || @is_invitee
-        @comments = @invitation.comments.includes(:user)
+      # Checks that the slug Url match with current user slug
+      if (current_user.slug == params[:user_id])
+        if @is_inviter || @is_invitee
+          @comments = @invitation.comments.includes(:user)
+        else
+          render nothing: true, status: :unauthorized
+        end
       else
-        render nothing: true, status: :unauthorized
+        redirect_to root_path
       end
     else
-      redirect_to root_path
+      send_to_signin
     end
   end
   
