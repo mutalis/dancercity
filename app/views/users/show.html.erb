@@ -19,7 +19,7 @@
       <% end %>
     <% end %>
 
-    <%= form_for(@user) do |f| %>
+    <%= form_for(@user, url: user_path(@user.id)) do |f| %>
 
       <%= f.label :gender %>
       <%= f.select :gender, ['female','male'] %>
