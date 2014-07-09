@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
 ¡ Gracias por unirte a la comunidad de Dancer City !\n\n
 Tu cuenta ha sido creada. A partir de ahora te será más fácil contactar a personas que les gusta bailar.\n\n
 Puedes acceder a tu página de perfil en:\n\n
-http://www.dancercity.net/#{self.username}\n\n
+http://www.dancercity.net/#{self.slug}\n\n
 Por favor síguenos en nuestra página en Facebook para estar al día de lo que sucede en la comunidad Dancer City.\n\n
 https://www.facebook.com/dancercity\n\n
 Si tienes alguna duda o comentario sobre Dancer City, contáctanos a través de nuestra página en Facebook, o en nuestra página de contacto en Dancer City:\n\n
