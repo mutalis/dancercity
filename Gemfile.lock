@@ -30,6 +30,9 @@ GEM
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     awesome_print (1.2.0)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     brakeman (2.6.1)
@@ -291,6 +294,8 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_nested_set (= 2.1.6)
+  better_errors
+  binding_of_caller
   brakeman
   bullet
   capistrano (= 2.15.5)

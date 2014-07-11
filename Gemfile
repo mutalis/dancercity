@@ -12,6 +12,8 @@ group :development, :test do
 	gem 'puma', '2.8.1'
 	gem 'jazz_hands'
 	gem 'brakeman', :require => false
+	gem 'better_errors'
+	gem 'binding_of_caller'
 end
 
 group :development do
