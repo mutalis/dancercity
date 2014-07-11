@@ -11,6 +11,7 @@ group :development, :test do
 	gem 'debugger'
 	gem 'puma', '2.8.1'
 	gem 'jazz_hands'
+	gem 'brakeman', :require => false
 end
 
 group :development do
