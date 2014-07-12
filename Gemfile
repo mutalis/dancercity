@@ -11,9 +11,6 @@ group :development, :test do
 	gem 'debugger'
 	gem 'puma', '2.8.1'
 	gem 'jazz_hands'
-	gem 'brakeman', :require => false
-	gem 'better_errors'
-	gem 'binding_of_caller'
 end
 
 group :development do
@@ -23,6 +20,10 @@ group :development do
 	gem 'capistrano-sidekiq', '0.3.0'
 	gem 'rack-mini-profiler'
 	gem 'letter_opener_web', '1.2.0'
+	gem 'brakeman', :require => false
+	gem 'better_errors'
+	gem 'binding_of_caller'
+	gem 'meta_request'
 end
 
 # Use SCSS for stylesheets
