@@ -24,6 +24,12 @@ group :development do
 	gem 'better_errors'
 	gem 'binding_of_caller'
 	gem 'meta_request'
+	gem 'rspec-rails', '~> 3.0.1'
+end
+
+group :test do
+	gem 'poltergeist', '1.5.1'
+	gem 'capybara', '~> 2.4.1'
 end
 
 # Use SCSS for stylesheets
