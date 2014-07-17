@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-feature "About Us page", :type => :feature do
-  scenario "get contact form" do
-    visit root_path
-    expect(page).to have_content 'engine'
+feature 'About Us page', :type => :feature do
+  scenario 'get access to the page' do
+    visit about_path
+    expect(page).to have_content 'About Us'
   end
 end
 
