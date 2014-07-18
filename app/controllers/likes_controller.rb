@@ -32,10 +32,7 @@ class LikesController < ApplicationController
   end
 
   def like_message(user)
-    fb_locale = user.facebook.fql_query("SELECT locale FROM user WHERE uid = me()")
-    fb_locale = fb_locale[0]["locale"]
-
-    if (fb_locale =~ Regexp.new('\Aes_')) == 0
+    if (locale =~ Regexp.new('\Aes_')) == 0
       subject = "#{user.first_name} ¡ Tienes un nuevo Like en Dancer City !"
 
       message = "Hola #{user.first_name}\n\n

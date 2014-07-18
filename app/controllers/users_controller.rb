@@ -30,10 +30,7 @@ class UsersController < ApplicationController
           flash.now[:error] = 'Please allow Dancer City to post a message on your Facebook wall. Please try again.'
         end
       else
-        fb_locale = current_user.facebook.fql_query("SELECT locale FROM user WHERE uid = me()")
-        fb_locale = fb_locale[0]["locale"]
-
-        if (fb_locale =~ Regexp.new('\Aes_')) == 0
+        if (locale =~ Regexp.new('\Aes_')) == 0
           @fb_post = "Si buscas pareja de baile, o quieres conocer a nuevas personas, en Dancer City las puedes encontrar.\n\n
           Dancer City es un servicio gratis especialmente diseñado para este fin.\n
           Entra al Sitio http://www.dancercity.net para conocer más detalles.\n

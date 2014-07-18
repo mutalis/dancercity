@@ -309,7 +309,8 @@ CREATE TABLE users (
     published_comcoms_count integer DEFAULT 0,
     deleted_comcoms_count integer DEFAULT 0,
     spam_comcoms_count integer DEFAULT 0,
-    bio text
+    bio text,
+    locale character varying(255)
 );
 
 
@@ -599,3 +600,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140704200646');
 INSERT INTO schema_migrations (version) VALUES ('20140704200647');
 
 INSERT INTO schema_migrations (version) VALUES ('20140706205532');
+
+INSERT INTO schema_migrations (version) VALUES ('20140717025403');

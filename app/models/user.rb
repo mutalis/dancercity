@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
       end
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
+      user.locale = auth.info.locale
       user.image = auth.info.image
       if auth.info.respond_to? :email
         user.email = auth.info.email
@@ -163,10 +164,7 @@ class User < ActiveRecord::Base
   
   # Send email with the settings of the user.
   def send_welcome_message
-    fb_locale = self.facebook.fql_query("SELECT locale FROM user WHERE uid = me()")
-    fb_locale = fb_locale[0]["locale"]
-
-    if (fb_locale =~ Regexp.new('\Aes_')) == 0
+    if (locale =~ Regexp.new('\Aes_')) == 0
       subject = "#{self.first_name} ¡ Bienvenido a Dancer City !"
 
       message = "Hola #{self.first_name}\n\n
