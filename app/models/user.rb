@@ -103,7 +103,6 @@ class User < ActiveRecord::Base
       end
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
-      user.locale = auth.info.locale
       user.image = auth.info.image
       if auth.info.respond_to? :email
         user.email = auth.info.email
@@ -111,6 +110,7 @@ class User < ActiveRecord::Base
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
       user.gender = auth.extra.raw_info.gender
+      user.locale = auth.extra.raw_info.locale
 
       # get user location via Koala only if the location data exists
       if auth.extra.raw_info.location.respond_to? :id
