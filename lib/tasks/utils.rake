@@ -8,10 +8,12 @@ namespace :dc_tools do
 
     User.find_each(:batch_size => 1000) do |user|
       begin
-        user.locale = @graph.get_object(user.uid)['locale']
+        if user.locale == nil
+          user.locale = @graph.get_object(user.uid)['locale']
 
-        if !user.save
-          puts "Error to update the locale for user id #{user.id}"
+          if !user.save
+            puts "Error to update the locale for user id #{user.id}"
+          end
         end
       rescue Exception => e
         puts e.message
