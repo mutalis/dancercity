@@ -88,3 +88,5 @@ gem 'haml', '4.0.5'
 gem 'newrelic_rpm'
 
 gem 'socialization', '1.1.0'
+
+gem 'font-awesome-rails', '4.1.0.0'

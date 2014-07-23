@@ -115,7 +115,7 @@
       </div>
     </div>
 
-    <br><%= submit_tag 'Search', name: nil, class: 'tiny button radius' %>
+    <br><%= button_tag 'Search', class: 'tiny button radius', data: {disable_with: '<i class="fa fa-spinner fa-spin"></i> Wait a moment please'} %>
   <% end %>
 
   <% if @users %>

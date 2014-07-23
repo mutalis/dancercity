@@ -11,5 +11,6 @@
  *= require_self
  *= require foundation_and_overrides
  *= require the_comments
+ *= require font-awesome
  *= require_tree .
  */
