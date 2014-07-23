@@ -3,7 +3,7 @@
 
   <% if current_user %>
     <% unless current_user.likes?(user) %>
-      <%= link_to '<i class="fa fa-thumbs-o-up fa-lg"></i> Like'.html_safe, remote: true, class: 'tiny button radius' %>
+      <%= link_to '<i class="fa fa-thumbs-o-up fa-lg"></i> Like'.html_safe, likes_path(user), remote: true, class: 'tiny button radius' %>
     <% end %>
   <% else %>
     <%= link_to '<i class="fa fa-thumbs-o-up fa-lg"></i> Like'.html_safe, signin_path, class: 'tiny button radius' %>
