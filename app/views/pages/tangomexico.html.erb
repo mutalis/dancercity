@@ -1,0 +1,9 @@
+<h3>TangoHoy Page Feed</h3>
+
+<% @page_feed.each do |entry| %>
+  <p>
+    <%= entry['message'] %><br>
+    <img src="<%= entry['picture'] %>"/>
+  </p>
+  <hr>
+<% end %>
