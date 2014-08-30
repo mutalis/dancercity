@@ -1,9 +1,4 @@
-<h3>TangoHoy Page Feed</h3>
+<h4>Tango M&eacute;xico</h4>
 
-<% @page_feed.each do |entry| %>
-  <p>
-    <%= entry['message'] %><br>
-    <img src="<%= entry['picture'] %>"/>
-  </p>
-  <hr>
-<% end %>
+<%= render partial: 'shared/post_entry', collection: @feed_entries %>
+

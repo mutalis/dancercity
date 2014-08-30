@@ -269,6 +269,43 @@ ALTER SEQUENCE mentions_id_seq OWNED BY mentions.id;
 
 
 --
+-- Name: posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE posts (
+    id integer NOT NULL,
+    title character varying(255),
+    entry_id character varying(255),
+    url character varying(255),
+    summary text,
+    published_at timestamp without time zone,
+    slug character varying(255),
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -379,6 +416,13 @@ ALTER TABLE ONLY mentions ALTER COLUMN id SET DEFAULT nextval('mentions_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -428,6 +472,14 @@ ALTER TABLE ONLY likes
 
 ALTER TABLE ONLY mentions
     ADD CONSTRAINT mentions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -537,6 +589,20 @@ CREATE INDEX index_on_users_location ON users USING gist (st_geographyfromtext((
 
 
 --
+-- Name: index_posts_on_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_posts_on_slug ON posts USING btree (slug);
+
+
+--
+-- Name: index_posts_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_posts_on_user_id ON posts USING btree (user_id);
+
+
+--
 -- Name: index_users_on_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -602,3 +668,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140704200647');
 INSERT INTO schema_migrations (version) VALUES ('20140706205532');
 
 INSERT INTO schema_migrations (version) VALUES ('20140717025403');
+
+INSERT INTO schema_migrations (version) VALUES ('20140828204729');

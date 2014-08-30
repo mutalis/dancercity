@@ -1,6 +1,6 @@
  source 'https://rubygems.org'
 
-gem 'rails', '4.0.8'
+gem 'rails', '4.0.9'
 
 ruby '2.0.0'
 
@@ -65,7 +65,7 @@ gem 'omniauth-facebook', '1.6.0'
 
 gem 'koala', '1.9.0'
 
-gem 'friendly_id', '5.0.3'
+gem 'friendly_id', '5.0.4'
 
 gem 'will_paginate', '3.0.5'
 
@@ -90,3 +90,5 @@ gem 'newrelic_rpm'
 gem 'socialization', '1.1.0'
 
 gem 'font-awesome-rails', '4.1.0.0'
+
+gem 'feedjira', '1.3.1'
