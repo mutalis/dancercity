@@ -92,3 +92,5 @@ gem 'socialization', '1.1.0'
 gem 'font-awesome-rails', '4.1.0.0'
 
 gem 'feedjira', '1.3.1'
+
+gem 'meta-tags', '2.0.0'

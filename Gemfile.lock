@@ -160,6 +160,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta-tags (2.0.0)
+      actionpack (>= 3.0.0)
     meta_request (0.3.3)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
@@ -372,6 +374,7 @@ DEPENDENCIES
   jquery-rails
   koala (= 1.9.0)
   letter_opener_web (= 1.2.0)
+  meta-tags (= 2.0.0)
   meta_request
   newrelic_rpm
   omniauth-facebook (= 1.6.0)

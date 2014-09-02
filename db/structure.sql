@@ -269,6 +269,39 @@ ALTER SEQUENCE mentions_id_seq OWNED BY mentions.id;
 
 
 --
+-- Name: meta_tags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE meta_tags (
+    id integer NOT NULL,
+    name character varying(255),
+    content character varying(255),
+    post_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: meta_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE meta_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: meta_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE meta_tags_id_seq OWNED BY meta_tags.id;
+
+
+--
 -- Name: posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -416,6 +449,13 @@ ALTER TABLE ONLY mentions ALTER COLUMN id SET DEFAULT nextval('mentions_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY meta_tags ALTER COLUMN id SET DEFAULT nextval('meta_tags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
 
 
@@ -472,6 +512,14 @@ ALTER TABLE ONLY likes
 
 ALTER TABLE ONLY mentions
     ADD CONSTRAINT mentions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: meta_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY meta_tags
+    ADD CONSTRAINT meta_tags_pkey PRIMARY KEY (id);
 
 
 --
@@ -575,6 +623,13 @@ CREATE INDEX index_invitations_on_user_id ON invitations USING btree (user_id);
 
 
 --
+-- Name: index_meta_tags_on_post_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_meta_tags_on_post_id ON meta_tags USING btree (post_id);
+
+
+--
 -- Name: index_on_users_gender; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -670,3 +725,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140706205532');
 INSERT INTO schema_migrations (version) VALUES ('20140717025403');
 
 INSERT INTO schema_migrations (version) VALUES ('20140828204729');
+
+INSERT INTO schema_migrations (version) VALUES ('20140902033304');
