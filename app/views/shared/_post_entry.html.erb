@@ -1,6 +1,11 @@
 <div class="panel radius">
   <p>
     <%= raw post_entry.published_at %><br>
-    <%= raw post_entry.summary %>
+    <%= raw post_entry.summary %><br>
+    <%=
+      link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
+        link_to 'Ver todas las publicaciones', posts_path
+      end
+    %>
   </p>
 </div>

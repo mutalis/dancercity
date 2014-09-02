@@ -19,13 +19,15 @@ Dancercity::Application.routes.draw do
 
   get 'likes/:id', to: 'likes#create', as: 'likes'
 
-  get 'tangomexico' => 'pages#tangomexico'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'users#index'
+
+  scope 'tangomexico' do
+    resources :posts, path: '', only: [:index, :show]
+  end
 
   resources :users, only: :index do
     resources :invitations, only: [:index, :show, :create, :update]
