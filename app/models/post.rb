@@ -19,12 +19,17 @@ class Post < ActiveRecord::Base
   def self.add_from_feed(feed_url)
     feed = Feedjira::Feed.fetch_and_parse(feed_url)
     add_entries(feed.entries)
+    feed
   end
 
-  def self.update_from_feed(feed_url)
-    feed = Feedjira::Feed.fetch_and_parse(feed_url)
-    feed = Feedjira::Feed.update(feed)
-    add_entries(feed.new_entries) if feed.updated?
+  def self.add_from_feed_daemon(feed_url, delay_interval = 30.minutes)
+    feed = add_from_feed(feed_url)
+    loop do
+      sleep delay_interval
+      puts 'Reading Feed'
+      feed = Feedjira::Feed.update(feed)
+      add_entries(feed.new_entries) if feed.updated?
+    end
   end
 
   def seo_title
