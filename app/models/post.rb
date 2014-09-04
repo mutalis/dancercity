@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Post < ActiveRecord::Base
   extend FriendlyId
 
@@ -59,6 +61,27 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def add_comment_in_fb
+    admin_user = User.find_by uid: '100005971752949'
+
+    if admin_user
+      fb_page_id = 535306009870436
+      fb_comment_id = admin_user.facebook.get_object('', id: URI::escape(self.url))['id']
+      
+      permissions = admin_user.facebook.get_connections('me','permissions')
+      @has_wallpost_permission = permissions[0]['publish_stream'].to_i == 1 ? true : false
+      @has_manage_pages_permission = permissions[0]['manage_pages'].to_i == 1 ? true : false
+
+      if @has_wallpost_permission && @has_manage_pages_permission
+        page_token = admin_user.facebook.get_page_access_token(fb_page_id)
+        page_graph = Koala::Facebook::API.new(page_token)
+        comment = "Puedes ver esta publicación en:\n #{post_url(self)}"
+
+        admin_user.facebook.put_connections("#{fb_page_id}_#{fb_comment_id}",'comments', message: comment)
+      end
+    end
+  end
+
   private
   def self.add_entries(entries)
     entries.each do |entry|
@@ -75,6 +98,8 @@ class Post < ActiveRecord::Base
         MetaTag.create!(name: 'title', content: entry.title[0..69].strip, post: post)
         MetaTag.create!(name: 'description', content: entry.summary[0..159].strip, post: post)
         MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
+        
+        post.add_comment_in_fb
       end
     end
   end

@@ -6,6 +6,7 @@ Dancercity::Application.routes.draw do
   get 'about' => 'pages#about'
   get 'privacy' => 'pages#privacy'
   get 'terms' => 'pages#terms'
+  get 'rasg' => 'pages#rasg'
 
   get 'contact' => 'contact_message#new'
   post 'contact' => 'contact_message#create', as: 'contact_messages'
