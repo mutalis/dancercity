@@ -77,7 +77,7 @@ class Post < ActiveRecord::Base
         page_graph = Koala::Facebook::API.new(page_token)
         comment = "Puedes ver esta publicación en:\n #{post_url(self)}"
 
-        admin_user.facebook.put_connections("#{fb_page_id}_#{fb_comment_id}",'comments', message: comment)
+        page_graph.put_connections("#{fb_page_id}_#{fb_comment_id}",'comments', message: comment)
       end
     end
   end
