@@ -82,3 +82,4 @@ capybara-*html
 vendor/extensions/**/spec/dummy
 
 .rbenv-version
+config/env.rb

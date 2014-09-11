@@ -1,0 +1,6 @@
+$('#post_<%= @post.id %>').prepend('<%= j render "shared/notices" %>');
+$('#moderation_form_<%= @post.id %>').hide();
+$('#notices_window').fadeOut(4000);
+<% if @deleted %>
+	$('#post_<%= @post.id %>').fadeOut(4000);
+<% end %>

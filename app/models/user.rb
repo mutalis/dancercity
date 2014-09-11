@@ -34,8 +34,7 @@ class User < ActiveRecord::Base
   acts_as_likeable
 
   def admin?
-    false
-    # self == User.find_by username: 'tangohoy1'
+    self.uid == '100005971752949'
   end
 
   def comments_admin?

@@ -27,7 +27,7 @@ Dancercity::Application.routes.draw do
   root 'users#index'
 
   scope 'tangomexico' do
-    resources :posts, path: '', only: [:index, :show]
+    resources :posts, path: '', only: [:index, :show, :update]
   end
 
   resources :users, only: :index do

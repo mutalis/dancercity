@@ -1,17 +1,17 @@
-<div class="panel radius">
-  <div class="row">
-    <div class="small-12 columns">
-      <p class="right"><%= time_tag post_entry.published_at %></p>
-    </div>
-    <div class="small-12 columns">
-      <p class="text-justify">
-        <%= raw post_entry.summary %><br>
-        <%=
-          link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
+<%= content_tag :div, id: "post_#{post_entry.id}" do %>
+  <div class="panel radius">
+    <p class="right"><%= time_tag post_entry.published_at %></p>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <p class="text-justify">
+          <%= raw post_entry.summary %><br>
+          <%= link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
             link_to 'Ver todas las publicaciones', posts_path
-          end
-        %>
-      </p>
+          end %>
+        </p>
+        <%= render partial: 'shared/post_moderation_form', locals: { post: post_entry } if current_user && current_user.admin? && post_entry.is_published? == false %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

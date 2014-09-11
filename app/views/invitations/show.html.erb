@@ -19,9 +19,9 @@
   <% if @is_invitee %>
     <p>Do you accept this invitation ?</p>
 
-    <%= link_to "Yes", user_invitation_path(@invitation.user, @invitation, ans: 'accepted'), method: :put, remote: true, class: 'tiny button radius' %>
+    <%= link_to "Yes", user_invitation_path(@invitation.user, @invitation, ans: 'accepted'), method: :put, remote: true, class: 'tiny button radius', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Accepting..."} %>
 
-    <%= link_to "Not at this time", user_invitation_path(@invitation.user, @invitation, ans: 'rejected'), method: :put, remote: true, class: 'tiny button radius' %>
+    <%= link_to "Not at this time", user_invitation_path(@invitation.user, @invitation, ans: 'rejected'), method: :put, remote: true, class: 'tiny button radius', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Rejecting..."} %>
   <% end %>
 
   <br>

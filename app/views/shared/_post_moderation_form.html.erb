@@ -1,0 +1,11 @@
+<%= content_tag :div, id: "moderation_form_#{post.id}" do %>
+
+  <%= form_for post, remote: true, html: { class: "right" } do |f| %>
+    <%= f.button 'Accept', name: 'is_published', value: 'true', class: 'tiny button radius', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Accepting..."} %>
+  <% end %>
+    
+  <%= form_for post, remote: true, html: { class: "left" } do |f| %>
+    <%= f.button 'Reject', name: 'is_published', value: 'false', class: 'tiny button radius', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Rejecting..."} %>
+  <% end %>
+
+<% end %>

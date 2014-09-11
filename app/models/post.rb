@@ -7,9 +7,16 @@ class Post < ActiveRecord::Base
   has_many :meta_tags
   
   # has_one :description, -> { where name: 'description' }, class_name: "MetaTag"
+  default_scope { order(created_at: :desc) }
+
+  scope :published, -> { where('is_published = ?', true) }
 
   friendly_id :define_slug, use: [:slugged, :history]
-  
+
+  def is_published?
+    is_published
+  end
+
   def define_slug
     if self.respond_to? :summary
       summary[0..64].strip

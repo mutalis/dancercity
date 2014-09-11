@@ -313,6 +313,7 @@ CREATE TABLE posts (
     summary text,
     published_at timestamp without time zone,
     slug character varying(255),
+    is_published boolean DEFAULT false,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
