@@ -13,7 +13,10 @@ class PostsController < ApplicationController
   def show
     set_meta_tags title: @post.seo_title,
                   description: @post.seo_description,
-                  keywords: @post.seo_keywords
+                  keywords: @post.seo_keywords,
+                  fb: {app_id: ENV!['FACEBOOK_KEY']},
+                  og: {title: 'title', image: 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png', url: 'article url', type: 'article'}
+
   end
 
   def update
