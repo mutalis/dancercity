@@ -11,18 +11,20 @@ class PostsController < ApplicationController
   end
 
   def show
+    post_url_value = post_url(@post)
+
     set_meta_tags title: @post.seo_title,
                   description: @post.seo_description,
                   keywords: @post.seo_keywords,
-                  fb: {app_id: ENV!['FACEBOOK_KEY']},
-                  og: {title: 'title', image: 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png', url: 'article url', type: 'article'}
+                  fb: {app_id: ENV!['FACEBOOK_KEY'], explicitly_shared: true },
+                  og: {title: 'title', image: 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png', url: post_url_value, type: 'article'}
 
   end
 
   def update
     if params[:is_published] == 'true'
       flash.now[:notice] = "You've accepted the Post." if @post.update(is_published: params[:is_published])
-      @post.put_in_fb_wall
+      @post.put_in_fb_wall(post_url_value)
     elsif params[:is_published] == 'false'
       flash.now[:notice] = "You've deleted the Post." if @post.destroy
       @deleted = true

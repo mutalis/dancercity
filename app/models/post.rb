@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 class Post < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
 
   extend FriendlyId
 
@@ -91,8 +90,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def put_in_fb_wall
-    default_url_options[:host] = 'http://www.dancercity.net'
+  def put_in_fb_wall(post_url_value)
 
     admin_user = User.find_by uid: '100005971752949'
 
@@ -110,7 +108,8 @@ class Post < ActiveRecord::Base
         # link_text = " Puedes ver esta publicación en: #{post_url(self)}"
         # message = self.convert_to_text + link_text
 
-        page_graph.put_connections(fb_page_id,'feed', message: message)
+        # page_graph.put_connections(fb_page_id,'feed', message: message)
+        page_graph.put_connections(fb_page_id, 'battana:post', article: post_url_value)
       end
     end
   end
