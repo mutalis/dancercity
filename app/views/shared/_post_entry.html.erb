@@ -4,8 +4,8 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <p class="text-justify">
-          <%= raw post_entry.summary %><br>
+        <div class="fb-post" data-href="<%= post_entry.url %>" data-width="350"></div>
+        <p><br>
           <%= link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
             link_to 'Ver todas las publicaciones', posts_path
           end %>

@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   has_many :meta_tags
   
   # has_one :description, -> { where name: 'description' }, class_name: "MetaTag"
-  default_scope { order(created_at: :asc) }
+  default_scope { order(published_at: :desc) }
 
   scope :published, -> { where('is_published = ?', true) }
 
@@ -37,8 +37,16 @@ class Post < ActiveRecord::Base
     loop do
       sleep delay_interval
       puts 'Reading Feed'
-      feed = Feedjira::Feed.update(feed)
-      add_entries(feed.new_entries) if feed.updated?
+      Feedjira::Feed.update(feed)
+
+      if feed.updated?
+        if feed.new_entries.size <= 100
+          add_entries(feed.new_entries) 
+        else
+          feed = add_from_feed(feed_url)
+        end
+      end
+
     end
   end
 
@@ -108,8 +116,7 @@ class Post < ActiveRecord::Base
         # link_text = " Puedes ver esta publicación en: #{post_url(self)}"
         # message = self.convert_to_text + link_text
 
-        # page_graph.put_connections(fb_page_id,'feed', message: message)
-        page_graph.put_connections(fb_page_id, 'battana:post', article: post_url_value)
+        page_graph.put_connections(fb_page_id,'feed', link: post_url_value)
       end
     end
   end
@@ -130,8 +137,7 @@ class Post < ActiveRecord::Base
         MetaTag.create!(name: 'title', content: entry.title[0..69].strip, post: post)
         MetaTag.create!(name: 'description', content: entry.summary[0..159].strip, post: post)
         MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
-        
-        post.put_in_fb_wall
+
       end
     end
   end
