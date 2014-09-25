@@ -307,13 +307,20 @@ ALTER SEQUENCE meta_tags_id_seq OWNED BY meta_tags.id;
 
 CREATE TABLE posts (
     id integer NOT NULL,
-    title character varying(255),
     entry_id character varying(255),
-    url character varying(255),
-    summary text,
+    caption text,
     published_at timestamp without time zone,
+    description text,
+    link character varying(255),
+    message text,
+    link_name character varying(255),
+    picture_url character varying(255),
+    video_url character varying(255),
+    status_type_desc character varying(255),
+    status_type character varying(255),
     slug character varying(255),
     is_published boolean DEFAULT false,
+    fb_permalink character varying(255),
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
