@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <div class="fb-post" data-href="<%= post_entry.url %>" data-width="350"></div>
+        <div class="fb-post" data-href="<%= post_entry.fb_permalink %>" data-width="350"></div>
         <p><br>
           <%= link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
             link_to 'Ver todas las publicaciones', posts_path
