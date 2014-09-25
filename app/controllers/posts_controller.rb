@@ -9,7 +9,7 @@ class PostsController < ApplicationController
                   :keywords => 'tango, mexico, tango mexico, milonga, milongas, bailar tango, clases de tango, clases tango, maestros de tango, maestras de tango, maestro de tango, maestra de tango, musica de tango, musica tango, maestros de baile, programa de radio tango, bailar, baile, danza'
 
     @feed_entries = Post.published
-    @feed_entries = Post.all if current_user && current_user.admin?
+    @feed_entries = Post.no_hidden if current_user && current_user.admin?
   end
 
   def show
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
       flash.now[:notice] = "You've accepted the Post." if @post.update(is_published: params[:is_published])
       @post.put_in_fb_wall(post_url(@post))
     elsif params[:is_published] == 'false'
-      flash.now[:notice] = "You've deleted the Post." if @post.destroy
+      flash.now[:notice] = "You've hidden the Post." if @post.update(is_published: nil)
       @deleted = true
     end
   end

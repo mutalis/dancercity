@@ -12,6 +12,8 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where('is_published = ?', true) }
 
+  scope :no_hidden, -> { where.not(is_published: nil) }
+
   friendly_id :define_slug, use: [:slugged, :history]
 
   def is_published?
