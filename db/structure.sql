@@ -652,6 +652,13 @@ CREATE INDEX index_on_users_location ON users USING gist (st_geographyfromtext((
 
 
 --
+-- Name: index_posts_on_entry_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_posts_on_entry_id ON posts USING btree (entry_id);
+
+
+--
 -- Name: index_posts_on_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -735,3 +742,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140717025403');
 INSERT INTO schema_migrations (version) VALUES ('20140828204729');
 
 INSERT INTO schema_migrations (version) VALUES ('20140902033304');
+
+INSERT INTO schema_migrations (version) VALUES ('20140926001324');
