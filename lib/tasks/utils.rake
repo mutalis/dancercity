@@ -29,4 +29,9 @@ namespace :dc_tools do
     Post.add_from_feed_daemon(args.feed_url)
   end
 
+  desc "Add entries to the Post model using the FB API."
+  task(:add_posts_from_api, [:fb_page_id] => :environment) do |task, args|
+    Post.add_from_feed(args.fb_page_id)
+  end
+
 end

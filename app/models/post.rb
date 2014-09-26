@@ -30,12 +30,11 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def self.add_from_feed()
+  def self.add_from_feed(fb_page_id)
     admin_user = User.find_by uid: '100005971752949'
 
     if admin_user
-      # fb_page_id = 535306009870436
-      fb_page_id = 111998825520170
+      # fb_page_id = 111998825520170
 
       # permissions = admin_user.facebook.get_connections('me','permissions')
       # @has_wallpost_permission = permissions[0]['publish_stream'].to_i == 1 ? true : false
@@ -184,7 +183,7 @@ class Post < ActiveRecord::Base
         else
           meta_text = post.message
         end
-
+puts post.inspect
         MetaTag.create!(name: 'title', content: meta_text[0..69].strip, post: post)
         MetaTag.create!(name: 'description', content: meta_text[0..159].strip, post: post)
         MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
