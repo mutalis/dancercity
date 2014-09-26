@@ -311,11 +311,11 @@ CREATE TABLE posts (
     caption text,
     published_at timestamp without time zone,
     description text,
-    link character varying(255),
+    link text,
     message text,
-    link_name character varying(255),
-    picture_url character varying(255),
-    video_url character varying(255),
+    link_name text,
+    picture_url text,
+    video_url text,
     status_type_desc character varying(255),
     status_type character varying(255),
     slug character varying(255),
@@ -744,3 +744,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140828204729');
 INSERT INTO schema_migrations (version) VALUES ('20140902033304');
 
 INSERT INTO schema_migrations (version) VALUES ('20140926001324');
+
+INSERT INTO schema_migrations (version) VALUES ('20140926025949');

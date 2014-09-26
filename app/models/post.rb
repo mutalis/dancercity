@@ -183,7 +183,7 @@ class Post < ActiveRecord::Base
         else
           meta_text = post.message
         end
-puts post.inspect
+
         MetaTag.create!(name: 'title', content: meta_text[0..69].strip, post: post)
         MetaTag.create!(name: 'description', content: meta_text[0..159].strip, post: post)
         MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
