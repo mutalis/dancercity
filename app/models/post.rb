@@ -51,6 +51,15 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def self.add_from_user_feed(user_id)
+    user = User.find_by uid: user_id
+
+    if user
+      user_feed = user.facebook.get_connections('me','feed')
+      add_entries(user_feed)
+    end
+  end
+
   def self.add_from_feed_daemon(feed_url, delay_interval = 30.minutes)
     feed = add_from_feed(feed_url)
     loop do
@@ -147,48 +156,50 @@ class Post < ActiveRecord::Base
   private
   def self.add_entries(entries)
     entries.each do |entry|
-      unless exists? entry_id: entry['id']
+      if entry['status_type'] != 'approved_friend'
+        unless exists? entry_id: entry['id']
 
-        if entry.has_key? 'message'
-          text_message = entry['message']
-        else
-          text_message = ''
+          if entry.has_key? 'message'
+            text_message = entry['message']
+          else
+            text_message = ''
+          end
+
+          if (entry.has_key? 'picture') && (entry['picture'].present?)
+            picture_url = entry['picture']
+          else
+            picture_url = 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png'
+          end
+
+          post = new.tap do |new_post|
+            new_post.entry_id = entry['id']
+            new_post.caption = entry['caption']
+            new_post.published_at = entry['created_time'].to_time
+            new_post.description = entry['description']
+            new_post.link = entry['link']
+            new_post.message = text_message
+            new_post.link_name = entry['name']
+            new_post.picture_url = picture_url
+            new_post.video_url = entry['source']
+            new_post.status_type_desc = entry['status_type']
+            new_post.status_type = entry['type']
+
+            new_post.fb_permalink = "https://www.facebook.com/#{entry['id'].split('_')[0]}/posts/#{entry['id'].split('_')[1]}"
+            new_post.user = User.first
+          end
+
+          if post.description.present?
+            meta_text = post.description
+          else
+            meta_text = post.message
+          end
+
+          MetaTag.create!(name: 'title', content: meta_text[0..69].strip, post: post)
+          MetaTag.create!(name: 'description', content: meta_text[0..159].strip, post: post)
+          MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
+
         end
-
-        if (entry.has_key? 'picture') && (entry['picture'].present?)
-          picture_url = entry['picture']
-        else
-          picture_url = 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png'
-        end
-
-        post = new.tap do |new_post|
-          new_post.entry_id = entry['id']
-          new_post.caption = entry['caption']
-          new_post.published_at = entry['created_time'].to_time
-          new_post.description = entry['description']
-          new_post.link = entry['link']
-          new_post.message = text_message
-          new_post.link_name = entry['name']
-          new_post.picture_url = picture_url
-          new_post.video_url = entry['source']
-          new_post.status_type_desc = entry['status_type']
-          new_post.status_type = entry['type']
-
-          new_post.fb_permalink = "https://www.facebook.com/#{entry['id'].split('_')[0]}/posts/#{entry['id'].split('_')[1]}"
-          new_post.user = User.first
-        end
-
-        if post.description.present?
-          meta_text = post.description
-        else
-          meta_text = post.message
-        end
-
-        MetaTag.create!(name: 'title', content: meta_text[0..69].strip, post: post)
-        MetaTag.create!(name: 'description', content: meta_text[0..159].strip, post: post)
-        MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
-
-      end
+      end # Only process entries that are not 'approved_friend'
     end
   end
 
