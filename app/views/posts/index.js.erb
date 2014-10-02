@@ -1,0 +1,6 @@
+$('#posts').append('<%= j render partial: 'shared/post_entry', collection: @feed_entries %>');
+<% if @feed_entries.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@feed_entries) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>

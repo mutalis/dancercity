@@ -1,5 +1,7 @@
 # encoding: UTF-8
 
+require 'will_paginate/array'
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update]
 
@@ -10,6 +12,8 @@ class PostsController < ApplicationController
 
     @feed_entries = Post.published
     @feed_entries = Post.no_hidden if current_user && current_user.admin?
+    # paginate the posts
+    @feed_entries = @feed_entries.paginate(:page => params[:page], :per_page => 10)
   end
 
   def show
