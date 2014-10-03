@@ -4,12 +4,12 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <div class="fb-post" data-href="<%= post_entry.fb_permalink %>" data-width="350"></div>
-        <p><br>
+        <p>
           <%= link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
             link_to 'Ver todas las publicaciones', posts_path
           end %>
         </p>
+
         <%= render partial: 'shared/post_moderation_form', locals: { post: post_entry } if current_user && current_user.admin? && post_entry.is_published? == false %>
       </div>
     </div>
