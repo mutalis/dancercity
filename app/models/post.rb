@@ -165,7 +165,7 @@ class Post < ActiveRecord::Base
           elsif (entry['type'] == 'video') && (entry['object_id'].present?)
             video_url = "https://www.facebook.com/video/embed?video_id=#{entry['object_id']}"
           elsif (entry['type'] == 'video') && (entry['link'].present?)
-            video_url = entry['link']
+            video_url = entry['source']
           else
             video_url = nil
             picture_url = entry['picture'] if entry['picture'].present?

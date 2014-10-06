@@ -4,6 +4,21 @@
 
     <div class="row">
       <div class="small-12 columns">
+
+        <% if post_entry.status_type == 'video'
+          video_url = post_entry.video_url
+          video_url.gsub! '&autoplay=1','' if (video_url =~ Regexp.new('youtube.com'))
+          %>
+          <div class="flex-video">
+            <iframe src="<%= video_url %>" frameborder="0"></iframe>
+          </div>
+        <% else %>
+          <%= image_tag post_entry.picture_url, class: 'border-rounded' %>
+        <% end %>
+
+        <%= simple_format(post_entry.caption) %>
+        <%= simple_format(post_entry.description) %>
+        <%= simple_format(post_entry.message) %>
         <p>
           <%= link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
             link_to 'Ver todas las publicaciones', posts_path
