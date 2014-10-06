@@ -323,7 +323,8 @@ CREATE TABLE posts (
     fb_permalink character varying(255),
     user_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    fb_object_id character varying(255)
 );
 
 
@@ -746,3 +747,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140902033304');
 INSERT INTO schema_migrations (version) VALUES ('20140926001324');
 
 INSERT INTO schema_migrations (version) VALUES ('20140926025949');
+
+INSERT INTO schema_migrations (version) VALUES ('20141003024358');

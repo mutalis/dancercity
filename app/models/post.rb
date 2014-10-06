@@ -155,20 +155,20 @@ class Post < ActiveRecord::Base
 
   private
   def self.add_entries(entries)
+    @graph_x = Koala::Facebook::API.new
     entries.each do |entry|
       if entry['status_type'] != 'approved_friend'
         unless exists? entry_id: entry['id']
 
-          if entry.has_key? 'message'
-            text_message = entry['message']
+          if entry['type'] == 'photo'
+            picture_url = @graph_x.get_object(entry['object_id'])['source']
+          elsif (entry['type'] == 'video') && (entry['object_id'].present?)
+            video_url = "https://www.facebook.com/video/embed?video_id=#{entry['object_id']}"
+          elsif (entry['type'] == 'video') && (entry['link'].present?)
+            video_url = entry['link']
           else
-            text_message = ''
-          end
-
-          if (entry.has_key? 'picture') && (entry['picture'].present?)
-            picture_url = entry['picture']
-          else
-            picture_url = 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png'
+            video_url = nil
+            picture_url = entry['picture'] if entry['picture'].present?
           end
 
           post = new.tap do |new_post|
@@ -177,10 +177,11 @@ class Post < ActiveRecord::Base
             new_post.published_at = entry['created_time'].to_time
             new_post.description = entry['description']
             new_post.link = entry['link']
-            new_post.message = text_message
+            new_post.message = entry['message']
             new_post.link_name = entry['name']
+            new_post.fb_object_id = entry['object_id']
             new_post.picture_url = picture_url
-            new_post.video_url = entry['source']
+            new_post.video_url = video_url
             new_post.status_type_desc = entry['status_type']
             new_post.status_type = entry['type']
 
@@ -188,10 +189,14 @@ class Post < ActiveRecord::Base
             new_post.user = User.first
           end
 
-          if post.description.present?
-            meta_text = post.description
+          if entry['description'].present?
+            meta_text = entry['description']
+          elsif entry['message'].present?
+            meta_text = entry['message']
+          elsif entry['caption'].present?
+            meta_text = entry['caption']
           else
-            meta_text = post.message
+            meta_text = ''
           end
 
           MetaTag.create!(name: 'title', content: meta_text[0..69].strip, post: post)
