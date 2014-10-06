@@ -23,7 +23,7 @@ class PostsController < ApplicationController
                   description: @post.seo_description,
                   keywords: @post.seo_keywords,
                   fb: {app_id: ENV!['FACEBOOK_KEY']},
-                  og: {url: post_url_value}
+                  og: {type: 'website', url: post_url_value, image: @post.picture_url}
 
   end
 
