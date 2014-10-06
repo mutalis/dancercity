@@ -143,11 +143,17 @@ class Post < ActiveRecord::Base
 
         # link_text = " Puedes ver esta publicación en: #{post_url(self)}"
         # message = self.convert_to_text + link_text
+
         if self.description.present?
           desc_text = self.description
-        else
+        elsif self.message.present?
           desc_text = self.message
+        elsif self.caption.present?
+          desc_text = self.caption
+        else
+          desc_text = ''
         end
+
         page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.picture_url, description: desc_text)
       end
     end
