@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   has_many :meta_tags
   
   # has_one :description, -> { where name: 'description' }, class_name: "MetaTag"
-  default_scope { order(published_at: :desc) }
+  default_scope { order(created_at: :desc) }
 
   scope :published, -> { where('is_published = ?', true) }
 
