@@ -5,12 +5,15 @@
     <div class="row">
       <div class="small-12 columns">
 
-        <% if post_entry.status_type == 'video'
-          video_url = post_entry.video_url
-          video_url.gsub! '&autoplay=1','' if (video_url =~ Regexp.new('youtube.com'))
-          %>
+        <% if post_entry.status_type == 'video' %>
           <div class="flex-video">
-            <iframe src="<%= video_url %>" frameborder="0"></iframe>
+            <% video_url = post_entry.video_url
+              video_id = video_url.scan(/(?<=youtube.com\/v\/).+(?=\?)/)[0]
+              if video_id %>
+              <iframe src="http://www.youtube.com/embed/<%= video_id %>" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            <% else %>
+              <iframe src="<%= video_url %>" frameborder="0"></iframe>
+            <% end %>
           </div>
         <% else %>
           <%= image_tag post_entry.picture_url, class: 'border-rounded' %>
