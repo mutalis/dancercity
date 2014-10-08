@@ -324,7 +324,8 @@ CREATE TABLE posts (
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    fb_object_id character varying(255)
+    fb_object_id character varying(255),
+    small_picture_url text
 );
 
 
@@ -749,3 +750,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140926001324');
 INSERT INTO schema_migrations (version) VALUES ('20140926025949');
 
 INSERT INTO schema_migrations (version) VALUES ('20141003024358');
+
+INSERT INTO schema_migrations (version) VALUES ('20141008034213');

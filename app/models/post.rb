@@ -154,7 +154,7 @@ class Post < ActiveRecord::Base
           desc_text = ''
         end
 
-        page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.picture_url, description: desc_text)
+        page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.small_picture_url, description: desc_text)
       end
     end
   end
@@ -166,6 +166,8 @@ class Post < ActiveRecord::Base
       if entry['status_type'] != 'approved_friend'
         unless exists? entry_id: entry['id']
 
+          small_picture_url = entry['picture'] if entry['picture'].present?
+
           if entry['type'] == 'photo'
             picture_url = @graph_x.get_object(entry['object_id'])['source']
           elsif (entry['type'] == 'video') && (entry['object_id'].present?)
@@ -174,7 +176,7 @@ class Post < ActiveRecord::Base
             video_url = entry['source']
           else
             video_url = nil
-            picture_url = entry['picture'] if entry['picture'].present?
+            picture_url = small_picture_url
           end
 
           post = new.tap do |new_post|
@@ -186,11 +188,12 @@ class Post < ActiveRecord::Base
             new_post.message = entry['message']
             new_post.link_name = entry['name']
             new_post.fb_object_id = entry['object_id']
-            new_post.picture_url = picture_url
+            new_post.small_picture_url = small_picture_url
             new_post.video_url = video_url
             new_post.status_type_desc = entry['status_type']
             new_post.status_type = entry['type']
 
+            new_post.picture_url = picture_url
             new_post.fb_permalink = "https://www.facebook.com/#{entry['id'].split('_')[0]}/posts/#{entry['id'].split('_')[1]}"
             new_post.user = User.first
           end
