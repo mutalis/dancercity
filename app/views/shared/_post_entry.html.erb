@@ -15,8 +15,10 @@
               <iframe src="<%= video_url %>" frameborder="0"></iframe>
             <% end %>
           </div>
-        <% else %>
-          <%= image_tag post_entry.picture_url, class: 'border-rounded' %>
+        <% else
+           if post_entry.picture_url %>
+            <%= image_tag post_entry.picture_url, class: 'border-rounded' %>
+           <% end %>
         <% end %>
 
         <%= simple_format(post_entry.caption) %>
