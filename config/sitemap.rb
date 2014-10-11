@@ -6,7 +6,7 @@ SitemapGenerator::Sitemap.create do
   add privacy_path, :lastmod => Time.now, :priority => 0.7, :changefreq => 'monthly'
   add terms_path, :lastmod => Time.now, :priority => 0.7, :changefreq => 'monthly'
 
-  Post.find_each do |post|
+  Post.published.find_each do |post|
     add post_path(post), :lastmod => post.updated_at, :priority => 0.8, :changefreq => 'weekly', :news => {
           :publication_name => "Dancer City",
           :publication_language => "es",
