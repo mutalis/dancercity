@@ -95,4 +95,4 @@ gem 'feedjira', '1.4.0'
 
 gem 'meta-tags', '2.0.0'
 
-gem 'sitemap_generator'
+gem 'sitemap_generator', '5.0.5'

@@ -395,7 +395,7 @@ DEPENDENCIES
   sdoc
   sidekiq (= 3.1.2)
   sinatra (= 1.4.5)
-  sitemap_generator
+  sitemap_generator (= 5.0.5)
   slim (= 2.0.0)
   socialization (= 1.1.0)
   the_comments (= 2.2.1)
