@@ -1,6 +1,5 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "http://www.dancercity.net"
-SitemapGenerator::Sitemap.sitemaps_path = 'shared/'
 
 SitemapGenerator::Sitemap.create do
   add about_path, :lastmod => Time.now, :priority => 0.9, :changefreq => 'weekly'
