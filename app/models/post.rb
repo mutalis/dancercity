@@ -154,7 +154,7 @@ class Post < ActiveRecord::Base
           desc_text = ''
         end
 
-        page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.small_picture_url, description: desc_text)
+        page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.medium_picture_url, description: desc_text)
       end
     end
   end
@@ -169,7 +169,11 @@ class Post < ActiveRecord::Base
           small_picture_url = entry['picture'] if entry['picture'].present?
 
           if entry['type'] == 'photo'
-            picture_url = @graph_x.get_object(entry['object_id'])['source']
+            fb_image_object = @graph_x.get_object(entry['object_id'])
+            picture_url = fb_image_object['source']
+            # get medium_picture_url
+            medium_picture_index = fb_image_object['images'].size - 4
+            medium_picture_url = fb_image_object['images'][medium_picture_index]['source']
           elsif (entry['type'] == 'video') && (entry['object_id'].present?)
             video_url = "https://www.facebook.com/video/embed?video_id=#{entry['object_id']}"
           elsif (entry['type'] == 'video') && (entry['link'].present?)
@@ -194,6 +198,7 @@ class Post < ActiveRecord::Base
             new_post.status_type = entry['type']
 
             new_post.picture_url = picture_url
+            new_post.medium_picture_url = medium_picture_url
             new_post.fb_permalink = "https://www.facebook.com/#{entry['id'].split('_')[0]}/posts/#{entry['id'].split('_')[1]}"
             new_post.user = User.first
           end
