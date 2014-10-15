@@ -24,8 +24,10 @@ class PostsController < ApplicationController
                   keywords: @post.seo_keywords,
                   fb: {app_id: ENV!['FACEBOOK_KEY']},
                   og: {title: @post.seo_title, type: 'website', url: post_url_value, locale: 'es_ES',
-                       description: @post.seo_description, site_name: 'Dancer City', image: @post.medium_picture_url},
-                  twitter: {card: 'summary_large_image', title: @post.seo_title, description: @post.seo_description, image: @post.picture_url}
+                       description: @post.seo_description, site_name: 'Dancer City',
+                       image: CGI::unescapeHTML(@post.medium_picture_url}),
+                  twitter: {card: 'summary_large_image', title: @post.seo_title,
+                            description: @post.seo_description, image: CGI::unescapeHTML(@post.picture_url)}
 
   end
 
