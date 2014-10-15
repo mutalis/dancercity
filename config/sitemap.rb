@@ -7,13 +7,7 @@ SitemapGenerator::Sitemap.create do
   add terms_path, :lastmod => Time.now, :priority => 0.7, :changefreq => 'monthly'
 
   Post.published.find_each do |post|
-    add post_path(post), :lastmod => post.updated_at, :priority => 0.8, :changefreq => 'weekly', :news => {
-          :publication_name => "Dancer City",
-          :publication_language => "es",
-          :title => post.meta_tags.find_by(name: 'title').content,
-          :keywords => post.meta_tags.find_by(name: 'keywords').content,
-          :publication_date => post.updated_at,
-          :genres => "Blog" }
+    add post_path(post), :lastmod => post.updated_at, :priority => 0.8, :changefreq => 'weekly'
   end
 
   # Put links creation logic here.
