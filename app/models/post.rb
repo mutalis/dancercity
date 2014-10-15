@@ -181,6 +181,7 @@ class Post < ActiveRecord::Base
           else
             video_url = nil
             picture_url = small_picture_url
+            medium_picture_url = small_picture_url
           end
 
           post = new.tap do |new_post|
