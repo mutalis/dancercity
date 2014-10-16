@@ -6,8 +6,7 @@ set_meta_tags title: @post.seo_title,
               og: {title: @post.seo_title, type: 'website', url: post_url(@post), locale: 'es_ES',
                    description: @post.seo_description, site_name: 'Dancer City',
                    image: raw(@post.medium_picture_url)},
-              twitter: {card: 'summary_large_image', title: @post.seo_title,
-                        description: @post.seo_description, image: raw(@post.picture_url)}
+              twitter: {card: 'summary_large_image'}
 %>
 
 <%= content_tag :div, id: "post_#{post_entry.id}" do %>
