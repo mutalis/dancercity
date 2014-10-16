@@ -216,7 +216,7 @@ class Post < ActiveRecord::Base
 
           MetaTag.create!(name: 'title', content: meta_text[0..69].strip, post: post)
           MetaTag.create!(name: 'description', content: meta_text[0..159].strip, post: post)
-          MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
+          MetaTag.create!(name: 'keywords', content: 'tango, mexico, tango mexico, milongas mexico, clases tango, clases de tango, milonga, milongas, musica de tango, musica tango, bailar tango', post: post)
 
         end
       end # Only process entries that are not 'approved_friend'
