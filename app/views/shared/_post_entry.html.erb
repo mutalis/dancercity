@@ -1,14 +1,3 @@
-<%
-set_meta_tags title: @post.seo_title,
-              description: @post.seo_description,
-              keywords: @post.seo_keywords,
-              fb: {app_id: ENV!['FACEBOOK_KEY']},
-              og: {title: @post.seo_title, type: 'website', url: post_url(@post), locale: 'es_ES',
-                   description: @post.seo_description, site_name: 'Dancer City',
-                   image: raw(@post.medium_picture_url)},
-              twitter: {card: 'summary_large_image'}
-%>
-
 <%= content_tag :div, id: "post_#{post_entry.id}" do %>
   <div class="panel radius">
     <p class="right"><%= time_tag post_entry.created_at %></p>
