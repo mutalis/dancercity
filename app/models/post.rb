@@ -176,8 +176,12 @@ class Post < ActiveRecord::Base
             medium_picture_url = fb_image_object['images'][medium_picture_index]['source']
           elsif (entry['type'] == 'video') && (entry['object_id'].present?)
             video_url = "https://www.facebook.com/video/embed?video_id=#{entry['object_id']}"
+            picture_url = small_picture_url
+            medium_picture_url = small_picture_url
           elsif (entry['type'] == 'video') && (entry['link'].present?)
             video_url = entry['source']
+            picture_url = small_picture_url
+            medium_picture_url = small_picture_url
           else
             video_url = nil
             picture_url = small_picture_url
