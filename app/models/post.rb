@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'open-uri'
 
 class Post < ActiveRecord::Base
 
@@ -144,16 +145,7 @@ class Post < ActiveRecord::Base
         # link_text = " Puedes ver esta publicación en: #{post_url(self)}"
         # message = self.convert_to_text + link_text
 
-        if self.description.present?
-          desc_text = self.description
-        elsif self.message.present?
-          desc_text = self.message
-        elsif self.caption.present?
-          desc_text = self.caption
-        else
-          desc_text = ''
-        end
-
+        desc_text = get_posting_text
         page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.medium_picture_url, description: desc_text)
       end
     end
@@ -166,9 +158,27 @@ class Post < ActiveRecord::Base
       config.access_token        = ENV!['TWITTER_ACCESS_TOKEN']
       config.access_token_secret = ENV!['TWITTER_ACCESS_SECRET']
     end
-    
-    client.update(post_url_value)
+
+    File.open('/tmp/tweet_image_file', 'wb') do |fo|
+      fo.write open(self.picture_url).read
+    end
+
+    client.update_with_media(post_url_value, File.new('/tmp/tweet_image_file'))
+    # status_text = get_posting_text
     # client.update(status_text[0..139].strip)
+  end
+
+  # Create the message to post
+  def get_posting_text()
+    if self.description.present?
+      desc_text = self.description
+    elsif self.message.present?
+      desc_text = self.message
+    elsif self.caption.present?
+      desc_text = self.caption
+    else
+      desc_text = ''
+    end
   end
 
   private
