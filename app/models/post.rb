@@ -159,6 +159,18 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def tweet(post_url_value)
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV!['TWITTER_CONSUMER_KEY']
+      config.consumer_secret     = ENV!['TWITTER_CONSUMER_SECRET']
+      config.access_token        = ENV!['TWITTER_ACCESS_TOKEN']
+      config.access_token_secret = ENV!['TWITTER_ACCESS_SECRET']
+    end
+    
+    client.update(post_url_value)
+    # client.update(status_text[0..139].strip)
+  end
+
   private
   def self.add_entries(entries)
     @graph_x = Koala::Facebook::API.new

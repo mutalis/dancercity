@@ -23,6 +23,7 @@ class PostsController < ApplicationController
     if params[:is_published] == 'true'
       flash.now[:notice] = "You've accepted the Post." if @post.update(is_published: params[:is_published])
       @post.put_in_fb_wall(post_url(@post))
+      @post.tweet(post_url(@post))
     elsif params[:is_published] == 'false'
       flash.now[:notice] = "You've hidden the Post." if @post.update(is_published: nil)
       @deleted = true
