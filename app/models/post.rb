@@ -146,7 +146,7 @@ class Post < ActiveRecord::Base
         # message = self.convert_to_text + link_text
 
         desc_text = get_posting_text
-        page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.medium_picture_url, description: desc_text)
+        page_graph.put_connections(fb_page_id,'feed', link: post_url_value, picture: self.picture_url, description: desc_text)
       end
     end
   end
@@ -193,20 +193,20 @@ class Post < ActiveRecord::Base
             fb_image_object = @graph_x.get_object(entry['object_id'])
             picture_url = fb_image_object['source']
             # get medium_picture_url
-            medium_picture_index = fb_image_object['images'].size - 4
-            medium_picture_url = fb_image_object['images'][medium_picture_index]['source']
+            # medium_picture_index = fb_image_object['images'].size - 4
+            # medium_picture_url = fb_image_object['images'][medium_picture_index]['source']
           elsif (entry['type'] == 'video') && (entry['object_id'].present?)
             video_url = "https://www.facebook.com/video/embed?video_id=#{entry['object_id']}"
             picture_url = small_picture_url
-            medium_picture_url = small_picture_url
+            # medium_picture_url = small_picture_url
           elsif (entry['type'] == 'video') && (entry['link'].present?)
             video_url = entry['source']
             picture_url = small_picture_url
-            medium_picture_url = small_picture_url
+            # medium_picture_url = small_picture_url
           else
             video_url = nil
             picture_url = small_picture_url
-            medium_picture_url = small_picture_url
+            # medium_picture_url = small_picture_url
           end
 
           post = new.tap do |new_post|
@@ -224,7 +224,7 @@ class Post < ActiveRecord::Base
             new_post.status_type = entry['type']
 
             new_post.picture_url = picture_url
-            new_post.medium_picture_url = medium_picture_url
+            new_post.medium_picture_url = picture_url
             new_post.fb_permalink = "https://www.facebook.com/#{entry['id'].split('_')[0]}/posts/#{entry['id'].split('_')[1]}"
             new_post.user = User.first
           end
