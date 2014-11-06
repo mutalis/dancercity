@@ -163,9 +163,8 @@ class Post < ActiveRecord::Base
       fo.write open(self.picture_url).read
     end
 
-    client.update_with_media(post_url_value, File.new('/tmp/tweet_image_file'))
-    # status_text = get_posting_text
-    # client.update(status_text[0..139].strip)
+    status_text = post_url_value + " #tango\n" + get_posting_text
+    client.update_with_media(status_text[0..139].strip, File.new('/tmp/tweet_image_file'))
   end
 
   # Create the message to post
