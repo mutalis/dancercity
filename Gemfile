@@ -98,3 +98,5 @@ gem 'meta-tags', '2.0.0'
 gem 'sitemap_generator', '5.0.5'
 
 gem 'twitter', '5.12.0'
+
+gem 'draper', '1.4.0'
