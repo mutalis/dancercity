@@ -159,12 +159,17 @@ class Post < ActiveRecord::Base
       config.access_token_secret = ENV!['TWITTER_ACCESS_SECRET']
     end
 
-    File.open('/tmp/tweet_image_file', 'wb') do |fo|
-      fo.write open(self.picture_url).read
-    end
-
     status_text = post_url_value + " #tango\n" + get_posting_text
-    client.update_with_media(status_text[0..136].strip + '...', File.new('/tmp/tweet_image_file'))
+
+    # if the Post don't have a picture tweet only the text.
+    if self.picture_url == nil
+      client.update(status_text[0..136].strip + '...')
+    else
+      File.open('/tmp/tweet_image_file', 'wb') do |fo|
+        fo.write open(self.picture_url).read
+      end
+      client.update_with_media(status_text[0..136].strip + '...', File.new('/tmp/tweet_image_file'))
+    end
   end
 
   # Create the message to post
