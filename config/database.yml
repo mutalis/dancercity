@@ -18,12 +18,15 @@ test:
   password: <%= ENV!['DB_PASS'] %>
   host: localhost
   pool: 5
-    
+
 production:
   adapter: postgresql
   encoding: unicode
   database: dancercity
-  username: dancercity
-  password: <%= ENV!['DB_PASS'] %>
-  host: localhost
+  username: db_username
+  password:
+  host: 172.31.63.48
   pool: 25
+  sslca: /etc/ssl/ca-cert.pem
+  sslcert: /etc/ssl/client-cert.pem
+  sslkey: /etc/ssl/client-key.pem
