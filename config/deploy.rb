@@ -4,13 +4,13 @@ require 'rollbar/capistrano'
 set :rollbar_token, ENV!['ROLLBAR_ACCESS_TOKEN']
 
 set :application, ENV!['APP_NAME']
-set :server_name, "54.84.189.237"
+set :server_name, ENV!['SERVER_NAME']
 
 role :web, server_name # Your HTTP server, Apache/etc
 role :app, server_name # This may be the same as your `Web` server
 role :db, server_name, :primary => true # This is where Rails migrations will run
 
-set :user, 'mutalis'
+set :user, 'ec2-user'
 set :deploy_to, "/home/#{user}/#{application}"
 set :deploy_via, :copy
 # set :deploy_via, :remote_cache
