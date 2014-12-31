@@ -25,11 +25,11 @@
         <%= simple_format(post_entry.description) %>
         <%= simple_format(post_entry.message) %>
         <p>
-          <%= link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do
-            <div class="fb-comments" data-href="http://developers.facebook.com/docs/plugins/comments/" data-width="100%" data-numposts="10" data-colorscheme="light"></div>
+          <%= link_to_unless_current raw('Ver m&aacute;s'), post_path(post_entry) do %>
+            <div class="fb-comments" data-href="<%= post_url(post_entry) %>" data-width="100%" data-numposts="50" data-colorscheme="light"></div>
 
-            link_to 'Ver todas las publicaciones', posts_path
-          end %>
+            <br><br><%= link_to 'Ver todas las publicaciones', posts_path %>            
+          <% end %>
         </p>
 
         <%= render partial: 'shared/post_moderation_form', locals: { post: post_entry } if current_user && current_user.admin? && post_entry.is_published? == false %>
