@@ -26,6 +26,10 @@ Dancercity::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'users#index'
 
+  scope 'tangohoy' do
+    resources :posts, path: '', only: [:index, :show, :update]
+  end
+
   scope 'tangomexico' do
     resources :posts, path: '', only: [:index, :show, :update]
   end
