@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   end
 
   def rasg
-    if current_user.admin?
+    if current_user && current_user.admin?
       permissions = current_user.facebook.get_connections('me','permissions')
       @has_wallpost_permission = permissions[0]['publish_stream'].to_i == 1 ? true : false
       @has_manage_pages_permission = permissions[0]['manage_pages'].to_i == 1 ? true : false
